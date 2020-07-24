@@ -204,16 +204,19 @@ COPY public.coupons (coupon_id, user_id, merchant, discount, category_id, expira
 39	3	Marriott	1 free night up to 35K	2	2021-01-31T20:00:00.000Z	2020-07-05 22:50:50.093706+00	f
 40	3	Hyatt	1 free night up to category 4	2	2021-01-01T20:00:00.000Z	2020-07-05 22:58:22.863846+00	f
 41	3	Ruth's Chris Steak House	$25 off with any entree purchase	1	2020-11-30T20:00:00.000Z	2020-07-05 23:16:15.650156+00	f
-35	3	AMC	1 free large popcorn and beverage	4	2020-07-31T19:00:00.000Z	2020-07-03 18:58:53.290689+00	f
-44	3	Pusheen Shop	1 free 9" boba Pusheen	5	2020-07-04T19:00:00.000Z	2020-07-05 23:49:29.229056+00	f
-37	3	Calvin Klein	20% off birthday coupon	5	2020-07-31T19:00:00.000Z	2020-07-05 20:43:35.302883+00	f
 38	3	Peet's 	1 free beverage any size	1	2020-08-31T19:00:00.000Z	2020-07-05 20:47:53.615886+00	f
-31	3	Shell	Use app pay with PayPal $3 off 	5	2020-07-31T19:00:00.000Z	2020-07-03 18:14:19.189666+00	f
-42	3	Boiling Point	$10 off with meal order	1	2020-07-20T19:00:00.000Z	2020-07-05 23:22:20.768589+00	t
-49	3	El Pollo Loco	25% off online order	1	2020-07-12T19:00:00.000Z	2020-07-11 05:25:57.935946+00	f
-50	3	Panera Bread	1 free pasta, any variety	1	2020-07-20T19:00:00.000Z	2020-07-11 05:55:33.07276+00	f
-36	3	Cheesecake Factory	$20 lunch special	1	2020-07-03T18:59:20.214Z	2020-07-03 18:59:59.307816+00	t
-34	3	IHG	1 free night up to 40,000 points	2	2020-08-31T19:00:00.000Z	2020-07-03 18:57:19.561076+00	t
+53	3	Chipotle	1 free meal	1	2020-07-11T20:06:06.590Z	2020-07-11 20:06:24.904242+00	t
+37	3	Calvin Klein	20% off birthday coupon	5	2020-07-31T19:00:00.000Z	2020-07-05 20:43:35.302883+00	t
+57	3	Gina's Pizza	Pizza BOGO	1	2020-07-25T19:00:00.000Z	2020-07-19 20:01:52.90786+00	f
+55	3	Portola Coffee	1 free beverage	1	2020-07-25T19:00:00.000Z	2020-07-19 20:00:20.890062+00	t
+54	3	Churned Creamery	1 free single scoop of ice cream	1	2020-07-25T19:00:00.000Z	2020-07-19 19:59:05.393333+00	t
+58	3	El Pollo Loco	$5 off any purchase. Coupon in app 	1	2020-08-01T19:00:00.000Z	2020-07-19 20:03:07.476998+00	t
+56	3	Ding Tea - Irvine	Drink BOGO	1	2020-07-25T19:00:00.000Z	2020-07-19 20:00:55.016991+00	t
+60	3	Dunkin Dount	Birthday free beverage	1	2020-10-20T19:00:00.000Z	2020-07-22 22:43:13.108484+00	f
+61	3	Noah's Bagel	Birthday free egg sandwich	1	2020-09-03T19:00:00.000Z	2020-07-22 23:40:26.88416+00	f
+62	3	Starbucks	Birthday 1 free drink on 7/25 only	1	2020-07-25T19:00:00.000Z	2020-07-23 18:22:20.78677+00	f
+31	3	Shell	Use app pay with PayPal $3 off 	5	2020-07-31T19:00:00.000Z	2020-07-03 18:14:19.189666+00	t
+59	3	Fast5xpress	1 free silver car wash, bring printed email	5	2020-08-08T19:00:00.000Z	2020-07-19 20:09:10.576278+00	t
 \.
 
 
@@ -232,6 +235,8 @@ COPY public.users (user_id, name, email, password, created_at, avatar_url) FROM 
 10	Emma Stone	es@gmail.com	$2a$10$EoIB2lEzH2D68IcsOMlvfOR0oblsKbrUys3Uh6MoxmbUApLEaIkcu	2020-06-24 05:44:08.473454+00	//www.gravatar.com/avatar/b9245b28e0753ede8d628a0c079d511f?s=200&r=pg&d=mm
 11	Krazy 8	k8@gmail.com	$2a$10$bF/j9g893HP1aNpTJjq5JOC9OOGjEIYkYfTaGDuIgCxnMstT1Wr2i	2020-06-24 05:51:46.601482+00	//www.gravatar.com/avatar/56a18757493e78019d4c4e65a6b716bc?s=200&r=pg&d=mm
 12	Luke Skywalker	ls@gmail.com	$2a$10$yIFo/bwWdmWN3y.1MN.cbeTKrECtXVcpPZ5SRf14Fd6vguhYrfwDm	2020-06-24 05:57:56.121143+00	//www.gravatar.com/avatar/27eb5383bc621e9e761d33c4b2a5f7f3?s=200&r=pg&d=mm
+13	Demo Man	demo@gmail.com	$2a$10$7/fLfbdsL1Lh6UFSuVNrcumwdcrrT8mbpFZue.boPx93F5e6.pS/y	2020-07-11 19:20:31.920328+00	//www.gravatar.com/avatar/bb90dcb0ceabfc8bf10c550f1ee95ee7?s=200&r=pg&d=mm
+14	Saul Goodman 	saul.goodman@gmail.com	$2a$10$NvJFgduLFK0XL3mgoZIlpeZjk2jDr0PCroaRm1G1vVcfSlPbFU.Ey	2020-07-11 19:53:17.200468+00	//www.gravatar.com/avatar/aac176fab8e73c7d64194e44ac671e75?s=200&r=pg&d=mm
 \.
 
 
@@ -246,14 +251,14 @@ SELECT pg_catalog.setval('public.categories_category_id_seq', 5, true);
 -- Name: coupons_coupon_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.coupons_coupon_id_seq', 50, true);
+SELECT pg_catalog.setval('public.coupons_coupon_id_seq', 62, true);
 
 
 --
 -- Name: users_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.users_user_id_seq', 12, true);
+SELECT pg_catalog.setval('public.users_user_id_seq', 14, true);
 
 
 --
