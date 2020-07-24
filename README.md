@@ -56,13 +56,13 @@ DATABASE_URL=   // Your PostgreSQL localhost url
 JWTSECRET=      // Use any value
 ```
 
-3. Import the example database to PostgreSQL
+4. Import the example database to PostgreSQL
 
 ```
 npm run db:import
 ```
 
-4. Start the project. Once started you can view the application by opening http://localhost:3000 in your browser.
+5. Start the project. Once started you can view the application by opening http://localhost:3000 in your browser.
 
 ```
 npm run dev
