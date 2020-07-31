@@ -81,7 +81,7 @@ const Dashboard = ({
     <Fragment>
       <div className='container text-center pt-5'>
         <img src='/images/no-coupon.png' style={{ width: '300px' }} />
-        <h4>Oops, no coupon...</h4>
+        <h4>Welcome, please add some coupons into the pocket!</h4>
 
         <div className='btn-addCoupon mt-5'>
           <Link className='btn-addCoupon__icon-text' to='/add-coupon'>
