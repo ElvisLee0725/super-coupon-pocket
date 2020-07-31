@@ -37,7 +37,7 @@ const EditCoupon = ({
   const [usedCoupon, setCouponUsed] = useState(false);
 
   useEffect(() => {
-    getCouponById(match.params.couponId);
+    getCouponById(match.params.couponId, history);
     getCategories();
   }, []);
 
