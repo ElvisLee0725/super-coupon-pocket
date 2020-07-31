@@ -116,6 +116,31 @@ router.get('/categories', auth, async (req, res, next) => {
 // @Private
 router.get('/coupon/:id', auth, async (req, res, next) => {
   try {
+    const { id } = req.params;
+
+    // Check the owner of coupon first to prevent unauthorized edit
+    const sqlCheckOwner = `
+      SELECT "c"."user_id"
+      FROM "coupons" AS "c"
+      WHERE "c"."coupon_id" = $1;
+    `;
+
+    const {
+      rows: [user = null]
+    } = await db.query(sqlCheckOwner, [id]);
+
+    // No user id found, the coupon id doesn't exist in the table
+    if (!user) {
+      return next(
+        new ClientError([{ msg: `This coupon id ${id} does not exist` }], 404)
+      );
+    }
+
+    // The coupon doesn't belong to current login user
+    if (user.user_id !== req.user.id) {
+      return next(new ClientError([{ msg: 'Not authorized' }], 401));
+    }
+
     const sqlGetCouponById = `
                   SELECT "c"."merchant",
                          "c"."discount",
@@ -126,7 +151,7 @@ router.get('/coupon/:id', auth, async (req, res, next) => {
                   WHERE "c"."coupon_id" = $1;`;
     const {
       rows: [coupon = null]
-    } = await db.query(sqlGetCouponById, [req.params.id]);
+    } = await db.query(sqlGetCouponById, [id]);
     res.json(coupon);
   } catch (err) {
     next(err);

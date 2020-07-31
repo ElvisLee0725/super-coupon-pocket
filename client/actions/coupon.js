@@ -43,11 +43,16 @@ export const getCategories = () => async dispatch => {
   }
 };
 
-export const getCouponById = couponId => async dispatch => {
+export const getCouponById = (couponId, history) => async dispatch => {
   try {
     const res = await axios.get(`/api/coupons/coupon/${couponId}`);
     dispatch({ type: GET_CURCOUPON, payload: res.data });
   } catch (err) {
+    const errors = err.response.data.error;
+    if (errors) {
+      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+    }
+
     dispatch({
       type: COUPON_ERROR,
       payload: {
@@ -55,6 +60,8 @@ export const getCouponById = couponId => async dispatch => {
         status: err.response.data.status
       }
     });
+
+    history.push('/dashboard');
   }
 };
 
