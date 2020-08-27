@@ -202,21 +202,37 @@ COPY public.categories (category_id, category) FROM stdin;
 COPY public.coupons (coupon_id, user_id, merchant, discount, category_id, expiration_date, created_at, used) FROM stdin;
 3	4	AMC	1 free large drink	4	\N	2020-06-17 04:48:10.211285+00	f
 39	3	Marriott	1 free night up to 35K	2	2021-01-31T20:00:00.000Z	2020-07-05 22:50:50.093706+00	f
-40	3	Hyatt	1 free night up to category 4	2	2021-01-01T20:00:00.000Z	2020-07-05 22:58:22.863846+00	f
 41	3	Ruth's Chris Steak House	$25 off with any entree purchase	1	2020-11-30T20:00:00.000Z	2020-07-05 23:16:15.650156+00	f
-38	3	Peet's 	1 free beverage any size	1	2020-08-31T19:00:00.000Z	2020-07-05 20:47:53.615886+00	f
+72	16	hi	hi	1	2020-08-09T02:41:30.637Z	2020-08-09 02:41:42.685644+00	t
+73	16	jjj	jjj	1	2020-08-09T02:41:54.353Z	2020-08-09 02:42:01.441312+00	t
+74	16	jjj	jjj	1	2020-08-09T02:42:06.045Z	2020-08-09 02:42:11.907882+00	f
+75	16	kkk	kkk	1	2020-08-09T02:42:15.062Z	2020-08-09 02:42:21.115329+00	f
+68	3	Dunkin Dount	1 free beverage	1	2020-08-15T19:00:00.000Z	2020-07-31 05:36:14.916809+00	t
+76	3	IHG	1 free anniversary reward night under 40,000 point	2	2020-12-31T20:00:00.000Z	2020-08-10 21:50:58.513203+00	f
 53	3	Chipotle	1 free meal	1	2020-07-11T20:06:06.590Z	2020-07-11 20:06:24.904242+00	t
+77	3	Panera Bread	$5 off with order over $20 with code: SUMMERFIVE	1	2020-09-06T19:00:00.000Z	2020-08-13 19:36:47.086215+00	f
 37	3	Calvin Klein	20% off birthday coupon	5	2020-07-31T19:00:00.000Z	2020-07-05 20:43:35.302883+00	t
 57	3	Gina's Pizza	Pizza BOGO	1	2020-07-25T19:00:00.000Z	2020-07-19 20:01:52.90786+00	f
 55	3	Portola Coffee	1 free beverage	1	2020-07-25T19:00:00.000Z	2020-07-19 20:00:20.890062+00	t
+78	3	Kura Sushi	$5 off with order over $15	1	2020-09-07T19:00:00.000Z	2020-08-15 06:00:53.347489+00	f
 54	3	Churned Creamery	1 free single scoop of ice cream	1	2020-07-25T19:00:00.000Z	2020-07-19 19:59:05.393333+00	t
 58	3	El Pollo Loco	$5 off any purchase. Coupon in app 	1	2020-08-01T19:00:00.000Z	2020-07-19 20:03:07.476998+00	t
 56	3	Ding Tea - Irvine	Drink BOGO	1	2020-07-25T19:00:00.000Z	2020-07-19 20:00:55.016991+00	t
 60	3	Dunkin Dount	Birthday free beverage	1	2020-10-20T19:00:00.000Z	2020-07-22 22:43:13.108484+00	f
 61	3	Noah's Bagel	Birthday free egg sandwich	1	2020-09-03T19:00:00.000Z	2020-07-22 23:40:26.88416+00	f
-62	3	Starbucks	Birthday 1 free drink on 7/25 only	1	2020-07-25T19:00:00.000Z	2020-07-23 18:22:20.78677+00	f
 31	3	Shell	Use app pay with PayPal $3 off 	5	2020-07-31T19:00:00.000Z	2020-07-03 18:14:19.189666+00	t
 59	3	Fast5xpress	1 free silver car wash, bring printed email	5	2020-08-08T19:00:00.000Z	2020-07-19 20:09:10.576278+00	t
+40	3	Hyatt	1 free night up to category 4	2	2021-01-01T20:00:00.000Z	2020-07-05 22:58:22.863846+00	t
+62	3	Starbucks	Birthday 1 free drink on 7/25 only	1	2020-07-25T19:00:00.000Z	2020-07-23 18:22:20.78677+00	t
+65	3	Farmer Boys	1 free entree	1	2020-08-06T19:00:00.000Z	2020-07-26 03:32:34.053985+00	f
+64	3	Boiling Point	$10 off any purchase	1	2020-08-02T19:00:00.000Z	2020-07-25 08:30:37.280104+00	t
+71	3	85 Cafe	1 free M sea salt oolong tea	1	2020-08-31T19:00:00.000Z	2020-08-08 22:42:42.755243+00	t
+66	3	85 Cafe	1 free birthday cake	1	2020-07-31T19:00:00.000Z	2020-07-28 23:58:45.081582+00	t
+38	3	Peet's 	1 free beverage, any size	1	2020-12-31T20:00:00.000Z	2020-07-05 20:47:53.615886+00	f
+69	3	AMC	1 free beverage	4	2020-12-31T20:00:00.000Z	2020-08-02 18:15:47.718945+00	f
+67	3	85 Cafe	1 free sea salt drink, size M	1	2020-08-15T19:00:00.000Z	2020-07-28 23:59:50.751598+00	t
+70	3	AMC	Birthday 1 free drink and popcorn	4	2020-10-31T19:00:00.000Z	2020-08-07 22:51:29.592813+00	f
+79	17	AMC	20% Family tickets to AMC on a weekday	4	2020-11-27T20:00:00.000Z	2020-08-26 22:09:33.817213+00	f
 \.
 
 
@@ -237,6 +253,9 @@ COPY public.users (user_id, name, email, password, created_at, avatar_url) FROM 
 12	Luke Skywalker	ls@gmail.com	$2a$10$yIFo/bwWdmWN3y.1MN.cbeTKrECtXVcpPZ5SRf14Fd6vguhYrfwDm	2020-06-24 05:57:56.121143+00	//www.gravatar.com/avatar/27eb5383bc621e9e761d33c4b2a5f7f3?s=200&r=pg&d=mm
 13	Demo Man	demo@gmail.com	$2a$10$7/fLfbdsL1Lh6UFSuVNrcumwdcrrT8mbpFZue.boPx93F5e6.pS/y	2020-07-11 19:20:31.920328+00	//www.gravatar.com/avatar/bb90dcb0ceabfc8bf10c550f1ee95ee7?s=200&r=pg&d=mm
 14	Saul Goodman 	saul.goodman@gmail.com	$2a$10$NvJFgduLFK0XL3mgoZIlpeZjk2jDr0PCroaRm1G1vVcfSlPbFU.Ey	2020-07-11 19:53:17.200468+00	//www.gravatar.com/avatar/aac176fab8e73c7d64194e44ac671e75?s=200&r=pg&d=mm
+15	Debra	debrachiang1019@gmail.com	$2a$10$a4M9pKwCX/X09PAkWJkceu7lUGDU4OPwiKRaYMPT6qbxg9mwbXXoi	2020-07-25 00:09:13.743006+00	//www.gravatar.com/avatar/4fd86c5a36aa4fb6a5bbcbc13f685258?s=200&r=pg&d=mm
+16	Hi	hi@gmail.com	$2a$10$zOIks6D3BAfLsBjaq8Rhwu7PX/HJe4D39xY2gDRaZHcRjQsMGEXmC	2020-08-09 02:41:23.811378+00	//www.gravatar.com/avatar/b243cc95d53fbfc93dfd9f15c4cd39df?s=200&r=pg&d=mm
+17	Tim	a@b.cd	$2a$10$yMQIJMUECYnOWEW0VOSqKez46U1J74KE75ssbzI0IR8LOrJOjR/22	2020-08-26 22:08:27.283839+00	//www.gravatar.com/avatar/3a4651447c3ffc65b7a04611a4355a33?s=200&r=pg&d=mm
 \.
 
 
@@ -251,14 +270,14 @@ SELECT pg_catalog.setval('public.categories_category_id_seq', 5, true);
 -- Name: coupons_coupon_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.coupons_coupon_id_seq', 62, true);
+SELECT pg_catalog.setval('public.coupons_coupon_id_seq', 79, true);
 
 
 --
 -- Name: users_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.users_user_id_seq', 14, true);
+SELECT pg_catalog.setval('public.users_user_id_seq', 17, true);
 
 
 --

@@ -51,7 +51,9 @@ const Dashboard = ({
           </div>
         </div>
 
-        <div className='usedExpired pt-3'>
+        <div
+          className={`usedExpired pt-3 ${openUsedCoupons ? 'mb-3' : 'mb-5'}`}
+        >
           <a
             className='usedExpired__toggle'
             data-toggle='collapse'
@@ -72,7 +74,7 @@ const Dashboard = ({
             used and expired
           </a>
         </div>
-        <div className='collapse' id='usedExpiredArea'>
+        <div className='collapse mb-5' id='usedExpiredArea'>
           <CouponUsedExpired coupons={couponsUsedandExpired} />
         </div>
       </div>
