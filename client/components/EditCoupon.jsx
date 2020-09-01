@@ -91,7 +91,7 @@ const EditCoupon = ({
           <div className='form-group form-group--insertIcon insertIcon-left'>
             <input
               type='text'
-              className='form-control input-field font-italic'
+              className='form-control font-italic'
               placeholder='Merchant, store, you name it!'
               name='merchant'
               value={merchant}
