@@ -2,6 +2,7 @@ import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
   USER_LOADED,
+  UPLOAD_IMAGE,
   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
@@ -45,6 +46,14 @@ export default (state = initialState, action) => {
         isAuthenticated: false,
         loading: false,
         user: null
+      };
+    case UPLOAD_IMAGE:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          profile_image: payload.filename
+        }
       };
     default:
       return state;
