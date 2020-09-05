@@ -3,6 +3,7 @@ import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
   USER_LOADED,
+  UPLOAD_IMAGE,
   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
@@ -82,4 +83,20 @@ export const login = (email, password) => async dispatch => {
 export const logout = () => dispatch => {
   localStorage.removeItem('token');
   dispatch({ type: LOGOUT });
+};
+
+export const uploadUserImage = profileImg => async dispatch => {
+  const formData = new FormData();
+  formData.append('profileImg', profileImg);
+  try {
+    const res = await axios.post('/api/users/user-profile', formData, {});
+    dispatch({ type: UPLOAD_IMAGE, payload: res.data });
+  } catch (err) {
+    const errors = err.response.data.error;
+    if (errors) {
+      errors.forEach(error => {
+        dispatch(setAlert(error.msg, 'danger'));
+      });
+    }
+  }
 };

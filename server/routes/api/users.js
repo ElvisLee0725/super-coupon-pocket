@@ -8,6 +8,10 @@ const gravatar = require('gravatar');
 const ClientError = require('../../client-error');
 require('dotenv/config');
 
+const multer = require('multer');
+const uuid = require('uuid');
+const path = require('path');
+
 // @route   POST /api/users
 // @desc    Register users
 // @access  Public
@@ -87,5 +91,57 @@ router.post(
     }
   }
 );
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    // Must have correct absolute path with folder created already; Otherwise, it just won't work...
+    const imagePath = path.join(__dirname, '../../public/images/userProfile');
+    cb(null, imagePath);
+  },
+  filename: (req, file, cb) => {
+    const fileName = file.originalname.toLowerCase().split(' ').join('-');
+    cb(null, uuid.v4() + '-' + fileName);
+  }
+});
+
+const upload = multer({
+  storage: storage,
+  fileFilter: (req, file, cb) => {
+    if (
+      file.mimetype === 'image/png' ||
+      file.mimetype === 'image/jpg' ||
+      file.mimetype === 'image/jpeg'
+    ) {
+      cb(null, true);
+    } else {
+      cb(null, false);
+      return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
+    }
+  },
+  limits: {
+    fileSize: 500 * 1000 // 500KB
+  }
+});
+
+// @route   POST /api/users/user-profile
+// @desc    For users to upload profile images
+// @access  Private
+router.post('/user-profile', upload.single('profileImg'), (req, res, next) => {
+  try {
+    const file = req.file;
+    if (!file) {
+      res.status(400).json({
+        message: 'No file uploaded'
+      });
+    }
+    res.status(200).json({
+      filename: req.file.filename
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: 'Something is wrong'
+    });
+  }
+});
 
 module.exports = router;
