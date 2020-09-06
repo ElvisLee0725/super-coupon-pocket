@@ -9,7 +9,7 @@ const ClientError = require('../../client-error');
 
 // @route   GET api/auth
 // @desc    Get user data (except password) according to the used_id got from auth middleware
-// @access  Public
+// @access  Private
 router.get('/', auth, async (req, res, next) => {
   try {
     // Get user data from db
@@ -17,7 +17,8 @@ router.get('/', auth, async (req, res, next) => {
             SELECT "u"."user_id",
                 "u"."name",
                 "u"."email",
-                "u"."avatar_url"
+                "u"."avatar_url",
+                "u"."profile_image"
             FROM "users" AS "u"
             WHERE "u"."user_id" = $1;
         `;
