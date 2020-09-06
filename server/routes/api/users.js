@@ -8,6 +8,7 @@ const gravatar = require('gravatar');
 const ClientError = require('../../client-error');
 require('dotenv/config');
 
+const auth = require('../../middleware/auth');
 const multer = require('multer');
 const uuid = require('uuid');
 const path = require('path');
@@ -121,27 +122,51 @@ const upload = multer({
   limits: {
     fileSize: 500 * 1000 // 500KB
   }
-});
+}).single('profileImg');
 
 // @route   POST /api/users/user-profile
 // @desc    For users to upload profile images
 // @access  Private
-router.post('/user-profile', upload.single('profileImg'), (req, res, next) => {
-  try {
-    const file = req.file;
-    if (!file) {
-      res.status(400).json({
-        message: 'No file uploaded'
+router.post('/user-profile', auth, (req, res, next) => {
+  upload(req, res, async err => {
+    if (err instanceof multer.MulterError) {
+      return next(
+        new ClientError(
+          [{ msg: 'Image uploaded must be smaller than 500 KB' }],
+          403
+        )
+      );
+    } else if (err) {
+      return next(
+        new ClientError(
+          [{ msg: 'Only .png, .jpg and .jpeg format allowed for uploading' }],
+          403
+        )
+      );
+    }
+
+    try {
+      const sqlUpdateProfileImage = `
+          UPDATE "users"
+          SET "profile_image" = $1
+          WHERE "user_id" = $2
+          RETURNING "profile_image";
+        `;
+
+      const {
+        rows: [image = null]
+      } = await db.query(sqlUpdateProfileImage, [
+        req.file.filename,
+        req.user.id
+      ]);
+
+      res.send({ filename: image.profile_image });
+    } catch (err) {
+      res.send({
+        message: err.message
       });
     }
-    res.status(200).json({
-      filename: req.file.filename
-    });
-  } catch (err) {
-    res.status(500).json({
-      message: 'Something is wrong'
-    });
-  }
+  });
 });
 
 module.exports = router;
