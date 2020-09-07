@@ -11,6 +11,7 @@ import {
 } from './types';
 import { setAlert } from './alert';
 import setAuthToken from '../utils/setAuthToken';
+import { getAllCoupons } from './coupon';
 
 // Load user - use token to get user data from server
 export const loadUser = () => async dispatch => {
@@ -23,6 +24,7 @@ export const loadUser = () => async dispatch => {
     const res = await axios.get('/api/auth');
     // res.data is the user object
     dispatch({ type: USER_LOADED, payload: res.data });
+    dispatch(getAllCoupons());
   } catch (err) {
     dispatch({ type: AUTH_ERROR });
   }

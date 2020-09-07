@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Spinner from './Spinner';
 import { uploadUserImage } from '../actions/auth';
 
-const Profile = ({ user, loading, uploadUserImage }) => {
+const Profile = ({ user, loading, coupons, uploadUserImage }) => {
   const [profileImg, setFile] = useState(null);
 
   const onFileChange = e => {
@@ -18,49 +19,74 @@ const Profile = ({ user, loading, uploadUserImage }) => {
     }
   }, [profileImg]);
 
+  const usedCount = coupons.filter(coupon => coupon.used).length;
+  const useRate = (usedCount / coupons.length) * 100;
+
   return loading || !user ? (
     <Spinner />
   ) : (
-    <div className='box-layout'>
-      <div className='box-layout__box'>
-        <form encType='multipart/form-data' id='profile-image-upload'>
-          <div className='form-group'>
+    <Fragment>
+      <div className='container'>
+        <Link to='/dashboard' style={{ color: '#000' }}>
+          <i className='fas fa-chevron-left'></i> &nbsp;Back
+        </Link>
+        <div className='text-center mt-4'>
+          <form encType='multipart/form-data' id='profile-image-upload'>
             <label htmlFor='profile-image-input'>
-              <img
-                src={
-                  user.profile_image
-                    ? `/images/userProfile/${user.profile_image}`
-                    : user.avatar_url
-                }
-                className='mb-4 rounded-circle profile-image'
-                alt='User Avatar'
-              />
+              <div className='profile-image__frame rounded-circle'>
+                <img
+                  src={
+                    user.profile_image
+                      ? `/images/userProfile/${user.profile_image}`
+                      : user.avatar_url
+                  }
+                  className='profile-image'
+                  alt='User Avatar'
+                />
+
+                <input
+                  id='profile-image-input'
+                  type='file'
+                  onChange={e => onFileChange(e)}
+                />
+
+                <div className='profile-image__overlay'>
+                  <div>
+                    <i className='fas fa-camera fa-3x'></i>
+                    <br />
+                    <span style={{ fontSize: '0.8rem' }}>
+                      Use Square Image <br />
+                      Max Size: 500 KB
+                    </span>
+                  </div>
+                </div>
+              </div>
             </label>
+          </form>
 
-            <input
-              id='profile-image-input'
-              type='file'
-              onChange={e => onFileChange(e)}
-            />
-          </div>
-        </form>
+          <h3 className='my-4'>{user.name}</h3>
+          <h5 className='mb-5'>{user.email}</h5>
 
-        <h3>{user.name}</h3>
-        <h5>{user.email}</h5>
+          <p>Total Coupons: {coupons.length}</p>
+          <p>Coupons Used: {usedCount}</p>
+          <p>Usage Rate: {useRate.toFixed(2) + '%'}</p>
+        </div>
       </div>
-    </div>
+    </Fragment>
   );
 };
 
 Profile.propTypes = {
   user: PropTypes.object.isRequired,
   loading: PropTypes.bool.isRequired,
+  coupons: PropTypes.array.isRequired,
   uploadUserImage: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
   user: state.auth.user,
-  loading: state.auth.loading
+  loading: state.auth.loading,
+  coupons: state.coupon.coupons
 });
 
 export default connect(mapStateToProps, { uploadUserImage })(Profile);
