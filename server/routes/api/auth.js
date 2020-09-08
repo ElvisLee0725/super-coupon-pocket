@@ -99,4 +99,67 @@ router.post(
   }
 );
 
+// @route   POST api/auth/guest
+// @desc    Login user as guest and get token
+// @access  Public
+router.post(
+  '/guest',
+  [
+    check('email', 'Please use a valid email').isEmail(),
+    check('password', 'Password is required').exists()
+  ],
+  async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return next(new ClientError(errors.array(), 400));
+    }
+
+    const { email, password } = req.body;
+    try {
+      const sqlGetGuest = `
+      SELECT  "u"."user_id",
+              "u"."email",
+              "u"."password"
+      FROM "users" AS "u"
+      WHERE "u"."email" = $1;
+    `;
+      const {
+        rows: [guest = null]
+      } = await db.query(sqlGetGuest, [email]);
+
+      if (!guest) {
+        return next(
+          new ClientError([{ msg: 'Email or Password does not match' }], 404)
+        );
+      }
+
+      const isMatch = bcrypt.compareSync(password, guest.password);
+      if (!isMatch) {
+        return next(
+          new ClientError([{ msg: 'Email or Password does not match' }], 404)
+        );
+      }
+
+      const payload = {
+        user: {
+          id: guest.user_id
+        }
+      };
+
+      jwt.sign(
+        payload,
+        process.env.JWTSECRET,
+        { expiresIn: 86400 },
+        (err, token) => {
+          if (err) throw err;
+
+          res.send({ token });
+        }
+      );
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
 module.exports = router;

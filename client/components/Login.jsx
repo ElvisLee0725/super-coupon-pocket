@@ -1,10 +1,10 @@
 import React, { Fragment, useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { login } from '../actions/auth';
+import { login, guestLogin } from '../actions/auth';
 import PropTypes from 'prop-types';
 
-const Login = ({ login, isAuthenticated }) => {
+const Login = ({ login, guestLogin, isAuthenticated }) => {
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -66,6 +66,12 @@ const Login = ({ login, isAuthenticated }) => {
               Login
             </button>
           </form>
+          <button
+            className='btn btn-themeBlue btn-block mt-3'
+            onClick={() => guestLogin()}
+          >
+            Guest login (Demo)
+          </button>
           <div className='my-4 font-weight-bold'>OR</div>
           <Link to='/register' className='btn btn-themeBlue btn-block'>
             Sign up
@@ -78,6 +84,7 @@ const Login = ({ login, isAuthenticated }) => {
 
 Login.propTypes = {
   login: PropTypes.func.isRequired,
+  guestLogin: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool
 };
 
@@ -85,4 +92,4 @@ const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated
 });
 
-export default connect(mapStateToProps, { login })(Login);
+export default connect(mapStateToProps, { login, guestLogin })(Login);
