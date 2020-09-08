@@ -69,7 +69,7 @@ const Profile = ({ user, loading, coupons, uploadUserImage }) => {
 
           <p>Total Coupons: {coupons.length}</p>
           <p>Coupons Used: {usedCount}</p>
-          <p>Usage Rate: {useRate.toFixed(2) + '%'}</p>
+          <p>{coupons.length > 0 && `Usage Rate: ${useRate.toFixed(2)}%`}</p>
         </div>
       </div>
     </Fragment>
