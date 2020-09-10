@@ -8,6 +8,7 @@ import AddCoupon from '../components/AddCoupon';
 import EditCoupon from '../components/EditCoupon';
 import NotFound from '../components/NotFound';
 import PrivateRoute from './PrivateRoute';
+import PrivacyPolicy from '../components/PrivacyPolicy';
 
 const Routes = () => {
   return (
@@ -22,6 +23,7 @@ const Routes = () => {
         path='/edit-coupon/:couponId'
         component={EditCoupon}
       />
+      <Route exact path='/privacy-policy' component={PrivacyPolicy} />
       <Route component={NotFound} />
     </Switch>
   );

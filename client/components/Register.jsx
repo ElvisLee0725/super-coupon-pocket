@@ -93,19 +93,24 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
               <i className='fas fa-lock'></i>
             </div>
             <div className='form-group float-left'>
-              <input
-                type='checkbox'
-                name='consentTC'
-                checked={consentTC}
-                value={consentTC}
-                id='consentCheck'
-                onChange={e => {
-                  setFormData({ ...formData, consentTC: !consentTC });
-                  toggleDisabled(!disableSignUpBtn);
-                }}
-              />
-              <label htmlFor='consentCheck' className='ml-2'>
-                I agree to the <Link to='#!'>Terms & Condition</Link>
+              <label htmlFor='consentCheck' className=''>
+                <input
+                  type='checkbox'
+                  className='mr-2'
+                  name='consentTC'
+                  checked={consentTC}
+                  value={consentTC}
+                  id='consentCheck'
+                  onChange={e => {
+                    setFormData({ ...formData, consentTC: !consentTC });
+                    toggleDisabled(!disableSignUpBtn);
+                  }}
+                />
+                I agree to the{' '}
+                <Link to='/privacy-policy' target='_blank'>
+                  Privacy Policy
+                </Link>{' '}
+                and <Link to='#!'>Terms of Use</Link>
               </label>
             </div>
             <button
