@@ -1,0 +1,16 @@
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  font-size: 0.5rem;
+}
+
+.footer-link {
+  color: $black;
+}
+
+@media (min-width: $desktop-breakpoint) {
+  .footer {
+    font-size: 0.7rem;
+  }
+}

@@ -5,6 +5,7 @@ import Navbar from './Navbar';
 import Alert from './Alert';
 import Routes from '../routers/Routes';
 import { loadUser } from '../actions/auth';
+import Footer from './Footer';
 
 // Redux
 import { Provider } from 'react-redux';
@@ -43,6 +44,7 @@ export default class App extends React.Component {
             <Navbar />
             <Alert />
             <Routes />
+            <Footer />
           </Fragment>
         </Router>
       </Provider>
