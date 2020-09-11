@@ -110,7 +110,10 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
                 <Link to='/privacy-policy' target='_blank'>
                   Privacy Policy
                 </Link>{' '}
-                and <Link to='#!'>Terms of Use</Link>
+                and{' '}
+                <Link to='/terms-of-use' target='_blank'>
+                  Terms of Use
+                </Link>
               </label>
             </div>
             <button
