@@ -25,6 +25,24 @@ Try this application live at https://scp.elvislee.com
 - Users can mark coupons as used
 - Users can delete coupons
 
+## Preview
+
+### Register new user
+
+![register](preview/register.gif)
+
+### Add coupon
+
+![add-coupon](preview/add-coupon.gif)
+
+### Edit coupon
+
+![edit-coupon](preview/edit-coupon.gif)
+
+### Delete coupon
+
+![delete-coupon](preview/delete-coupon.gif)
+
 ## Development
 
 ### System Requirements
