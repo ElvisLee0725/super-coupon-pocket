@@ -37,7 +37,7 @@ const Profile = ({ user, loading, coupons, uploadUserImage }) => {
                 <img
                   src={
                     user.profile_image
-                      ? `/images/userProfile/${user.profile_image}`
+                      ? `https://ubuntu-ec2-s3.s3-us-west-1.amazonaws.com/${user.profile_image}`
                       : user.avatar_url
                   }
                   className='profile-image'
@@ -56,7 +56,7 @@ const Profile = ({ user, loading, coupons, uploadUserImage }) => {
                     <br />
                     <span style={{ fontSize: '0.8rem' }}>
                       Use Square Image <br />
-                      Max Size: 500 KB
+                      Max Size: 1 MB
                     </span>
                   </div>
                 </div>
@@ -77,7 +77,6 @@ const Profile = ({ user, loading, coupons, uploadUserImage }) => {
 };
 
 Profile.propTypes = {
-  user: PropTypes.object.isRequired,
   loading: PropTypes.bool.isRequired,
   coupons: PropTypes.array.isRequired,
   uploadUserImage: PropTypes.func.isRequired

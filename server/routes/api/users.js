@@ -11,7 +11,9 @@ require('dotenv/config');
 const auth = require('../../middleware/auth');
 const multer = require('multer');
 const uuid = require('uuid');
-const path = require('path');
+// const path = require('path');
+const aws = require('aws-sdk');
+const multerS3 = require('multer-s3');
 
 // @route   POST /api/users
 // @desc    Register users
@@ -93,17 +95,36 @@ router.post(
   }
 );
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    // Must have correct absolute path with folder created already; Otherwise, it just won't work...
-    const imagePath = path.join(__dirname, '../../public/images/userProfile');
-    cb(null, imagePath);
-  },
-  filename: (req, file, cb) => {
+aws.config.update({
+  secretAccessKey: process.env.SECRET_ACCESS_KEY,
+  accessKeyId: process.env.ACCESS_KEY_ID,
+  region: 'us-west-1'
+});
+
+const s3 = new aws.S3();
+
+const storage = multerS3({
+  s3: s3,
+  bucket: process.env.BUCKET_NAME,
+  acl: 'public-read',
+  key: function (req, file, cb) {
     const fileName = file.originalname.toLowerCase().split(' ').join('-');
-    cb(null, uuid.v4() + '-' + fileName);
+    // If file not stored in bucket root, need to specify folder path here
+    cb(null, 'scp/images/userProfile/' + uuid.v4() + '-' + fileName);
   }
 });
+
+// const storage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     // Must have correct absolute path with folder created already; Otherwise, it just won't work...
+//     const imagePath = path.join(__dirname, '../../public/images/userProfile');
+//     cb(null, imagePath);
+//   },
+//   filename: (req, file, cb) => {
+//     const fileName = file.originalname.toLowerCase().split(' ').join('-');
+//     cb(null, uuid.v4() + '-' + fileName);
+//   },
+// });
 
 const upload = multer({
   storage: storage,
@@ -120,7 +141,7 @@ const upload = multer({
     }
   },
   limits: {
-    fileSize: 500 * 1000 // 500KB
+    fileSize: 1000 * 1000 // 1 MB
   }
 }).single('profileImg');
 
@@ -132,39 +153,37 @@ router.post('/user-profile', auth, (req, res, next) => {
     if (err instanceof multer.MulterError) {
       return next(
         new ClientError(
-          [{ msg: 'Image uploaded must be smaller than 500 KB' }],
+          [{ msg: 'Image uploaded must be smaller than 1 MB' }],
           403
         )
       );
     } else if (err) {
+      res.send({ err });
       return next(
         new ClientError(
           [{ msg: 'Only .png, .jpg and .jpeg format allowed for uploading' }],
           403
         )
       );
-    }
-
-    try {
-      const sqlUpdateProfileImage = `
+    } else {
+      try {
+        const sqlUpdateProfileImage = `
           UPDATE "users"
           SET "profile_image" = $1
           WHERE "user_id" = $2
           RETURNING "profile_image";
         `;
 
-      const {
-        rows: [image = null]
-      } = await db.query(sqlUpdateProfileImage, [
-        req.file.filename,
-        req.user.id
-      ]);
+        const {
+          rows: [image = null]
+        } = await db.query(sqlUpdateProfileImage, [req.file.key, req.user.id]);
 
-      res.send({ filename: image.profile_image });
-    } catch (err) {
-      res.send({
-        message: err.message
-      });
+        res.send({ filename: image.profile_image });
+      } catch (err) {
+        res.send({
+          message: err.message
+        });
+      }
     }
   });
 });
