@@ -32,7 +32,7 @@ const Login = ({ login, guestLogin, isAuthenticated }) => {
       <div className='box-layout'>
         <div className='box-layout__box'>
           <img
-            src='/images/scp-logo.png'
+            src='https://ubuntu-ec2-s3.s3-us-west-1.amazonaws.com/scp/images/scp-logo.png'
             className='img-fluid mb-5'
             alt='SCP Logo'
           />
