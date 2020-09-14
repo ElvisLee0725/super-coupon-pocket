@@ -250,7 +250,8 @@ COPY public.coupons (coupon_id, user_id, merchant, discount, category_id, expira
 94	20	Ruth's Chris Steak House	$25 off an entree with coupon	1	2020-12-31T20:00:00.000Z	2020-09-08 21:52:16.384475+00	f
 95	20	Pusheen Shop	1 free Pusheen Box with coupon	5	2020-10-14T19:00:00.000Z	2020-09-09 02:51:02.758592+00	f
 70	3	AMC	Birthday 1 free drink and popcorn, plus $5 reward	4	2020-10-31T19:00:00.000Z	2020-08-07 22:51:29.592813+00	f
-96	14	Test	Test deal for free	1	2020-09-11T21:27:11.538Z	2020-09-11 21:27:25.308853+00	f
+99	14	Starbucks	test	1	2020-09-02T19:00:00.000Z	2020-09-14 01:39:26.059366+00	f
+100	3	Tender Greens	$3 off $15 order	1	2020-09-27T19:00:00.000Z	2020-09-14 19:00:52.73915+00	f
 \.
 
 
@@ -273,9 +274,9 @@ COPY public.users (user_id, name, email, password, created_at, avatar_url, profi
 15	Debra	debrachiang1019@gmail.com	$2a$10$a4M9pKwCX/X09PAkWJkceu7lUGDU4OPwiKRaYMPT6qbxg9mwbXXoi	2020-07-25 00:09:13.743006+00	//www.gravatar.com/avatar/4fd86c5a36aa4fb6a5bbcbc13f685258?s=200&r=pg&d=mm	\N
 16	Hi	hi@gmail.com	$2a$10$zOIks6D3BAfLsBjaq8Rhwu7PX/HJe4D39xY2gDRaZHcRjQsMGEXmC	2020-08-09 02:41:23.811378+00	//www.gravatar.com/avatar/b243cc95d53fbfc93dfd9f15c4cd39df?s=200&r=pg&d=mm	\N
 17	Tim	a@b.cd	$2a$10$yMQIJMUECYnOWEW0VOSqKez46U1J74KE75ssbzI0IR8LOrJOjR/22	2020-08-26 22:08:27.283839+00	//www.gravatar.com/avatar/3a4651447c3ffc65b7a04611a4355a33?s=200&r=pg&d=mm	\N
-3	Elvis Lee	elvislee0725@gmail.com	$2a$10$B74miPPFTn3fAQl/P/2ydOLhFCbQjkY58f1mqTaVkXMikKRE4vN.C	2020-06-14 21:44:45.123988+00	//www.gravatar.com/avatar/aaf2b27e19c09ec4a8173b0c0723e106?s=200&r=pg&d=mm	02faaa74-a4aa-4635-b18c-73abd1fa0649-profile2.jpg
 20	John Doe	guest@demo.com	$2a$10$pZmzCljZAilxwtiyu5PbFuUhQM9HALumxQazq3SRkWhR/Z6hqI1cy	2020-09-07 23:50:27.372952+00	//www.gravatar.com/avatar/52f88efd0890e268fe8f4486c1a3e16a?s=200&r=pg&d=mm	\N
 21	John Smith	demo@test.com	$2a$10$pti9WHAS1luXnoi6elk8PuK2BmdoZrYM14Yt/a6VANwnYLBQ/vqQe	2020-09-12 03:57:51.240734+00	//www.gravatar.com/avatar/7b6cfb77576b5a89d7a5f29fcbe3a60c?s=200&r=pg&d=mm	\N
+3	Elvis Lee	elvislee0725@gmail.com	$2a$10$B74miPPFTn3fAQl/P/2ydOLhFCbQjkY58f1mqTaVkXMikKRE4vN.C	2020-06-14 21:44:45.123988+00	//www.gravatar.com/avatar/aaf2b27e19c09ec4a8173b0c0723e106?s=200&r=pg&d=mm	scp/images/userProfile/be24f799-67a3-4d0a-8ad0-874fbdfe2fae-profile1.jpg
 \.
 
 
@@ -290,7 +291,7 @@ SELECT pg_catalog.setval('public.categories_category_id_seq', 5, true);
 -- Name: coupons_coupon_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.coupons_coupon_id_seq', 98, true);
+SELECT pg_catalog.setval('public.coupons_coupon_id_seq', 100, true);
 
 
 --
