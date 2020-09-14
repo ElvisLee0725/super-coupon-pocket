@@ -82,8 +82,11 @@ const Dashboard = ({
   ) : (
     <Fragment>
       <div className='container text-center pt-5'>
-        <img src='/images/no-coupon.png' style={{ width: '300px' }} />
-        <h4>Welcome, please add some coupons into the pocket!</h4>
+        <img
+          src='https://ubuntu-ec2-s3.s3-us-west-1.amazonaws.com/scp/images/no-coupon.png'
+          style={{ width: '300px' }}
+        />
+        <h4>Welcome, please add some coupons into your pocket!</h4>
 
         <div className='btn-addCoupon mt-5'>
           <Link className='btn-addCoupon__icon-text' to='/add-coupon'>

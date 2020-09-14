@@ -23,7 +23,7 @@ const Navbar = ({ logout, isAuthenticated }) => {
           <Link className='navbar-brand mr-auto' to='/'>
             <div style={{ width: '100px' }}>
               <img
-                src='/images/scp-logo.png'
+                src='https://ubuntu-ec2-s3.s3-us-west-1.amazonaws.com/scp/images/scp-logo.png'
                 className='img-fluid'
                 alt='SCP Logo'
               />
