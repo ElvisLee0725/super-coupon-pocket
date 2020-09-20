@@ -1,3 +1,12 @@
 body {
   background-color: $themeYellow;
+  // Make footer stick at bottom
+  position: relative;
+  min-height: 100vh;
+}
+
+// Include beside .container when a footer is needed!
+.page-container {
+  // Reserve footer height
+  padding-bottom: 3rem;
 }

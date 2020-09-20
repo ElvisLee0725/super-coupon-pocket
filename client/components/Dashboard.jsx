@@ -31,7 +31,7 @@ const Dashboard = ({
     <Spinner />
   ) : coupons.length > 0 ? (
     <Fragment>
-      <div className='container'>
+      <div className='container page-container'>
         <CouponFilters />
 
         {couponsFiltered.map(coupon => (
@@ -51,9 +51,7 @@ const Dashboard = ({
           </div>
         </div>
 
-        <div
-          className={`usedExpired pt-3 ${openUsedCoupons ? 'mb-3' : 'mb-5'}`}
-        >
+        <div className='usedExpired pt-3 mb-3'>
           <a
             className='usedExpired__toggle'
             data-toggle='collapse'
@@ -74,14 +72,14 @@ const Dashboard = ({
             used and expired
           </a>
         </div>
-        <div className='collapse mb-5' id='usedExpiredArea'>
+        <div className='collapse mb-3' id='usedExpiredArea'>
           <CouponUsedExpired coupons={couponsUsedandExpired} />
         </div>
       </div>
     </Fragment>
   ) : (
     <Fragment>
-      <div className='container text-center pt-5'>
+      <div className='container page-container text-center pt-5'>
         <img
           src='https://ubuntu-ec2-s3.s3-us-west-1.amazonaws.com/scp/images/no-coupon.png'
           style={{ width: '300px' }}

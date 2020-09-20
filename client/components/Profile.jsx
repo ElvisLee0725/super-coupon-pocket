@@ -26,7 +26,7 @@ const Profile = ({ user, loading, coupons, uploadUserImage }) => {
     <Spinner />
   ) : (
     <Fragment>
-      <div className='container'>
+      <div className='container page-container'>
         <Link to='/dashboard' style={{ color: '#000' }}>
           <i className='fas fa-chevron-left'></i> &nbsp;Back
         </Link>
