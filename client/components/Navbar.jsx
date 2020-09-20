@@ -21,7 +21,11 @@ const Navbar = ({ logout, isAuthenticated }) => {
         </button>
         <div className='collapse navbar-collapse' id='SCP-navbar'>
           <Link className='navbar-brand mr-auto' to='/'>
-            <div style={{ width: '100px' }}>
+            <div
+              style={{ width: '100px' }}
+              data-toggle='collapse'
+              data-target='.navbar-collapse.show'
+            >
               <img
                 src='https://ubuntu-ec2-s3.s3-us-west-1.amazonaws.com/scp/images/scp-logo.png'
                 className='img-fluid'
@@ -29,17 +33,24 @@ const Navbar = ({ logout, isAuthenticated }) => {
               />
             </div>
           </Link>
-          <div className='navbar-nav'>
-            <Link className='nav-item nav-link' to='/'>
-              <i className='fas fa-tachometer-alt'></i>&nbsp;Dashboard
-            </Link>
-            <Link className='nav-item nav-link' to='/profile'>
-              <i className='fas fa-user'></i>&nbsp;Profile
-            </Link>
-            <a onClick={logout} className='nav-item nav-link' href=''>
-              <i className='fas fa-sign-out-alt'></i>&nbsp;Logout
-            </a>
-          </div>
+
+          <ul className='navbar-nav'>
+            <li data-toggle='collapse' data-target='.navbar-collapse.show'>
+              <Link className='nav-item nav-link' to='/'>
+                <i className='fas fa-tachometer-alt'></i>&nbsp;Dashboard
+              </Link>
+            </li>
+            <li data-toggle='collapse' data-target='.navbar-collapse.show'>
+              <Link className='nav-item nav-link' to='/profile'>
+                <i className='fas fa-user'></i>&nbsp;Profile
+              </Link>
+            </li>
+            <li>
+              <a onClick={logout} className='nav-item nav-link' href='#!'>
+                <i className='fas fa-sign-out-alt'></i>&nbsp;Logout
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
     </nav>
