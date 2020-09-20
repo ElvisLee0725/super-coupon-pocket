@@ -38,7 +38,7 @@ const AddCoupon = ({ addCoupon, getCategories, history, categories }) => {
 
   return (
     <Fragment>
-      <div className='container'>
+      <div className='container page-container'>
         <Link to='/dashboard' style={{ color: '#000' }}>
           <i className='fas fa-chevron-left'></i> &nbsp;Back
         </Link>
@@ -99,13 +99,14 @@ const AddCoupon = ({ addCoupon, getCategories, history, categories }) => {
               isOutsideRange={() => false}
             />
           </div>
-
-          <button
-            type='submit'
-            className='mt-1 btn btn-themeBlue btn-block-xs-only btn-style float-right'
-          >
-            Save
-          </button>
+          <div className='form-group clearfix'>
+            <button
+              type='submit'
+              className='mt-1 btn btn-themeBlue btn-block-xs-only btn-style float-right'
+            >
+              Save
+            </button>
+          </div>
         </form>
       </div>
     </Fragment>

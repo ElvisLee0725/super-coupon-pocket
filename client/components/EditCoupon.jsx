@@ -80,7 +80,7 @@ const EditCoupon = ({
 
   return (
     <Fragment>
-      <div className='container'>
+      <div className='container page-container'>
         <Link to='/dashboard' style={{ color: '#000' }}>
           <i className='fas fa-chevron-left'></i> &nbsp;Back
         </Link>
@@ -155,27 +155,28 @@ const EditCoupon = ({
               Used coupon
             </label>
           </div>
+          <div className='form-group clearfix'>
+            <button
+              type='submit'
+              className='mt-1 btn btn-themeBlue btn-block-xs-only btn-style float-right'
+            >
+              Save
+            </button>
+            <button
+              type='button'
+              className='mt-1 btn btn-delete btn-block-xs-only btn-style float-right'
+              data-toggle='modal'
+              data-target={`#deleteCouponModal${match.params.couponId}`}
+            >
+              Delete
+            </button>
 
-          <button
-            type='submit'
-            className='mt-1 btn btn-themeBlue btn-block-xs-only btn-style float-right'
-          >
-            Save
-          </button>
-          <button
-            type='button'
-            className='mt-1 btn btn-delete btn-block-xs-only btn-style float-right'
-            data-toggle='modal'
-            data-target={`#deleteCouponModal${match.params.couponId}`}
-          >
-            Delete
-          </button>
-
-          <DeleteModal
-            deleteCoupon={deleteCoupon}
-            couponId={match.params.couponId}
-            history={history}
-          />
+            <DeleteModal
+              deleteCoupon={deleteCoupon}
+              couponId={match.params.couponId}
+              history={history}
+            />
+          </div>
         </form>
       </div>
     </Fragment>
