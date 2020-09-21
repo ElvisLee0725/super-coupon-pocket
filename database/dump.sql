@@ -249,9 +249,8 @@ COPY public.coupons (coupon_id, user_id, merchant, discount, category_id, expira
 93	20	Peet's	1 free beverage, any size	1	2020-10-10T19:00:00.000Z	2020-09-08 21:33:26.711475+00	f
 94	20	Ruth's Chris Steak House	$25 off an entree with coupon	1	2020-12-31T20:00:00.000Z	2020-09-08 21:52:16.384475+00	f
 95	20	Pusheen Shop	1 free Pusheen Box with coupon	5	2020-10-14T19:00:00.000Z	2020-09-09 02:51:02.758592+00	f
+100	3	Tender Greens	$3 off $15 order	1	2020-09-27T19:00:00.000Z	2020-09-14 19:00:52.73915+00	t
 70	3	AMC	Birthday 1 free drink and popcorn, plus $5 reward	4	2020-10-31T19:00:00.000Z	2020-08-07 22:51:29.592813+00	f
-99	14	Starbucks	test	1	2020-09-02T19:00:00.000Z	2020-09-14 01:39:26.059366+00	f
-100	3	Tender Greens	$3 off $15 order	1	2020-09-27T19:00:00.000Z	2020-09-14 19:00:52.73915+00	f
 \.
 
 
