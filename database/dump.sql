@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.12 (Ubuntu 10.12-0ubuntu0.18.04.1)
--- Dumped by pg_dump version 10.12 (Ubuntu 10.12-0ubuntu0.18.04.1)
+-- Dumped from database version 10.14 (Ubuntu 10.14-0ubuntu0.18.04.1)
+-- Dumped by pg_dump version 10.14 (Ubuntu 10.14-0ubuntu0.18.04.1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -214,7 +214,6 @@ COPY public.coupons (coupon_id, user_id, merchant, discount, category_id, expira
 57	3	Gina's Pizza	Pizza BOGO	1	2020-07-25T19:00:00.000Z	2020-07-19 20:01:52.90786+00	f
 55	3	Portola Coffee	1 free beverage	1	2020-07-25T19:00:00.000Z	2020-07-19 20:00:20.890062+00	t
 54	3	Churned Creamery	1 free single scoop of ice cream	1	2020-07-25T19:00:00.000Z	2020-07-19 19:59:05.393333+00	t
-58	3	El Pollo Loco	$5 off any purchase. Coupon in app 	1	2020-08-01T19:00:00.000Z	2020-07-19 20:03:07.476998+00	t
 56	3	Ding Tea - Irvine	Drink BOGO	1	2020-07-25T19:00:00.000Z	2020-07-19 20:00:55.016991+00	t
 31	3	Shell	Use app pay with PayPal $3 off 	5	2020-07-31T19:00:00.000Z	2020-07-03 18:14:19.189666+00	t
 59	3	Fast5xpress	1 free silver car wash, bring printed email	5	2020-08-08T19:00:00.000Z	2020-07-19 20:09:10.576278+00	t
@@ -230,27 +229,30 @@ COPY public.coupons (coupon_id, user_id, merchant, discount, category_id, expira
 79	17	AMC	20% Family tickets to AMC on a weekday	4	2020-11-27T20:00:00.000Z	2020-08-26 22:09:33.817213+00	f
 61	3	Noah's Bagel	Birthday free egg sandwich	1	2020-09-03T19:00:00.000Z	2020-07-22 23:40:26.88416+00	t
 78	3	Kura Sushi	$5 off with order over $15	1	2020-09-18T19:00:00.000Z	2020-08-15 06:00:53.347489+00	f
-60	3	Dunkin Dount	1 free beverage, any size	1	2020-11-13T20:00:00.000Z	2020-07-22 22:43:13.108484+00	f
-77	3	Panera Bread	$5 off with order over $20 with code: SUMMERFIVE	1	2020-09-06T19:00:00.000Z	2020-08-13 19:36:47.086215+00	t
 76	3	IHG	1 free anniversary reward night under 40,000 point	2	2020-12-31T20:00:00.000Z	2020-08-10 21:50:58.513203+00	t
 80	3	IKEA	$10 off and 1 free frozen yogurt	5	2020-10-31T19:00:00.000Z	2020-09-01 18:19:08.505716+00	t
 81	20	AMC	1 free movie ticket	4	2020-10-31T19:00:00.000Z	2020-09-08 04:11:54.066891+00	f
 82	20	Marriot Bonvoy	1 free night for rooms under 50,000 points.	2	2020-12-31T20:00:00.000Z	2020-09-08 04:17:05.472628+00	f
-83	20	Starbucks	1 free drink, any size	1	2020-10-11T19:00:00.000Z	2020-09-08 04:20:32.982835+00	f
-84	20	Kura Sushi	$5 off with order over $15	1	2020-09-30T19:00:00.000Z	2020-09-08 04:21:26.840522+00	f
 85	20	Boiling Point	$10 off with pot order	1	2020-10-01T19:00:00.000Z	2020-09-08 04:21:58.504202+00	f
 86	20	Regal	1 free small popcorn	4	2020-10-15T19:00:00.000Z	2020-09-08 04:22:30.02875+00	f
 87	20	85 Cafe	1 free 85C coffee, size M	1	2020-10-30T19:00:00.000Z	2020-09-08 04:24:02.619422+00	f
 88	20	Dave & Busters	$10 free game play	4	2020-10-19T19:00:00.000Z	2020-09-08 04:25:13.255536+00	f
 89	20	Alaska Airline	Flight ticket buy one get one with $99	2	2020-10-04T19:00:00.000Z	2020-09-08 04:26:18.781742+00	f
 90	20	Ralphs	1 free large eggs	5	2020-10-04T19:00:00.000Z	2020-09-08 04:27:51.614309+00	f
-91	20	Amazon	$25 off any purchase	5	2020-11-30T20:00:00.000Z	2020-09-08 04:28:51.982365+00	f
-92	20	IKEA	$10 off in store purchase	5	2020-10-15T19:00:00.000Z	2020-09-08 04:32:03.464615+00	f
 93	20	Peet's	1 free beverage, any size	1	2020-10-10T19:00:00.000Z	2020-09-08 21:33:26.711475+00	f
-94	20	Ruth's Chris Steak House	$25 off an entree with coupon	1	2020-12-31T20:00:00.000Z	2020-09-08 21:52:16.384475+00	f
-95	20	Pusheen Shop	1 free Pusheen Box with coupon	5	2020-10-14T19:00:00.000Z	2020-09-09 02:51:02.758592+00	f
 100	3	Tender Greens	$3 off $15 order	1	2020-09-27T19:00:00.000Z	2020-09-14 19:00:52.73915+00	t
 70	3	AMC	Birthday 1 free drink and popcorn, plus $5 reward	4	2020-10-31T19:00:00.000Z	2020-08-07 22:51:29.592813+00	f
+60	3	Dunkin Dount	1 free beverage, any size	1	2020-12-06T20:00:00.000Z	2020-07-22 22:43:13.108484+00	f
+84	20	Kura Sushi	$5 off with order over $15	1	2020-09-15T19:00:00.000Z	2020-09-08 04:21:26.840522+00	f
+102	3	Panera Bread	$10 off coupon x2 	1	2020-10-22T19:00:00.000Z	2020-09-23 02:54:04.473637+00	f
+91	20	Amazon	$25 off any purchase	5	2020-11-30T20:00:00.000Z	2020-09-08 04:28:51.982365+00	f
+83	20	Starbucks	1 free drink, any size	1	2020-10-11T19:00:00.000Z	2020-09-08 04:20:32.982835+00	f
+94	20	Ruth's Chris Steak House	$25 off an entree with coupon	1	2020-12-31T20:00:00.000Z	2020-09-08 21:52:16.384475+00	f
+95	20	Pusheen Shop	1 free Pusheen Box with coupon	5	2020-10-14T19:00:00.000Z	2020-09-09 02:51:02.758592+00	f
+92	20	IKEA	$10 off in store purchase	5	2020-10-15T19:00:00.000Z	2020-09-08 04:32:03.464615+00	f
+104	3	Starbucks	1 free drink	1	2020-10-06T19:00:00.000Z	2020-10-01 00:21:46.590972+00	f
+103	3	Target	$5 coupon	5	2020-10-27T19:00:00.000Z	2020-09-28 03:29:55.455535+00	f
+101	3	Farmer Boys	$10 off reward	1	2020-12-31T20:00:00.000Z	2020-09-23 02:23:24.90513+00	t
 \.
 
 
@@ -290,7 +292,7 @@ SELECT pg_catalog.setval('public.categories_category_id_seq', 5, true);
 -- Name: coupons_coupon_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.coupons_coupon_id_seq', 100, true);
+SELECT pg_catalog.setval('public.coupons_coupon_id_seq', 104, true);
 
 
 --
