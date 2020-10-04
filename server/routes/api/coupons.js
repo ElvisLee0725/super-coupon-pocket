@@ -56,7 +56,7 @@ router.post(
     `;
 
       const {
-        rows: [couponId = null]
+        rows: [{ coupon_id: couponId } = null]
       } = await db.query(sqlCreateCoupon, [
         userId,
         merchant,
@@ -64,7 +64,17 @@ router.post(
         categoryId,
         expirationDate
       ]);
-      res.json(couponId);
+
+      const sqlCreateHistory = `INSERT INTO "history" ("history_id", "coupon_id", "user_id", "created_at", "used_at", "used")
+        VALUES (default, $1, $2, default, default, default)
+        RETURNING *;
+      `;
+
+      const {
+        rows: [history = null]
+      } = await db.query(sqlCreateHistory, [couponId, userId]);
+
+      res.json(history);
     } catch (err) {
       next(err);
     }
