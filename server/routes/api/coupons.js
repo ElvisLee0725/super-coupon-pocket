@@ -4,6 +4,7 @@ const auth = require('../../middleware/auth');
 const ClientError = require('../../client-error');
 const db = require('../../database');
 const { check, validationResult } = require('express-validator');
+const moment = require('moment');
 
 // @route   POST /api/coupons
 // @desc    Create a new coupon with user_id as the login user
@@ -258,6 +259,19 @@ router.put(
         couponId
       ]);
 
+      // Update coupon used time or remove used in history depending on used value
+      const sqlUpdateUsedInHistory = `
+        UPDATE "history"
+        SET "used_at" = $1,
+        "used" = $2
+        WHERE "coupon_id" = $3;
+      `;
+      if (used) {
+        await db.query(sqlUpdateUsedInHistory, [moment(), used, couponId]);
+      } else {
+        await db.query(sqlUpdateUsedInHistory, [null, used, couponId]);
+      }
+
       res.json(coupon);
     } catch (err) {
       next(err);
@@ -306,6 +320,19 @@ router.patch('/:couponId', auth, async (req, res, next) => {
     const {
       rows: [coupon = null]
     } = await db.query(sqlUpdateUsed, [used, couponId]);
+
+    // Update coupon used time or remove used in history depending on used value
+    const sqlUpdateUsedInHistory = `
+      UPDATE "history"
+      SET "used_at" = $1,
+          "used" = $2
+      WHERE "coupon_id" = $3;
+    `;
+    if (used) {
+      await db.query(sqlUpdateUsedInHistory, [moment(), used, couponId]);
+    } else {
+      await db.query(sqlUpdateUsedInHistory, [null, used, couponId]);
+    }
 
     res.json(coupon);
   } catch (err) {
