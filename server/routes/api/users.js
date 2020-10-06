@@ -95,6 +95,45 @@ router.post(
   }
 );
 
+// @route   GET /api/users/history-all
+// @desc    Get users personal coupon history
+// @access  Private
+router.get('/history-all', auth, async (req, res, next) => {
+  try {
+    const sqlGetHistory = `
+      SELECT COUNT(*) AS "totalCouponsCount"
+      FROM "history"
+      WHERE "user_id" = $1;
+    `;
+
+    const {
+      rows: [totalCouponsCount = 0]
+    } = await db.query(sqlGetHistory, [req.user.id]);
+    res.json(totalCouponsCount);
+  } catch (err) {
+    next(err);
+  }
+});
+
+// @route   GET /api/users/history-all-used
+// @desc    Get users personal used coupon history
+// @access  Private
+router.get('/history-all-used', auth, async (req, res, next) => {
+  try {
+    const sqlGetHistoryUsed = `
+      SELECT COUNT(*) AS "totalUsedCouponsCount"
+      FROM "history"
+      WHERE "user_id" = $1 AND "used" = true;
+    `;
+    const {
+      rows: [totalUsedCouponsCount = 0]
+    } = await db.query(sqlGetHistoryUsed, [req.user.id]);
+    res.json(totalUsedCouponsCount);
+  } catch (err) {
+    next(err);
+  }
+});
+
 aws.config.update({
   secretAccessKey: process.env.SECRET_ACCESS_KEY,
   accessKeyId: process.env.ACCESS_KEY_ID,
