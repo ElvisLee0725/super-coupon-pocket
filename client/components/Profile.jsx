@@ -4,8 +4,17 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Spinner from './Spinner';
 import { uploadUserImage } from '../actions/auth';
+import { getPersonalHistory } from '../actions/history';
 
-const Profile = ({ user, loading, coupons, uploadUserImage }) => {
+const Profile = ({
+  user,
+  loading,
+  coupons,
+  totalCouponsCount,
+  totalUsedCouponsCount,
+  uploadUserImage,
+  getPersonalHistory
+}) => {
   const [profileImg, setFile] = useState(null);
 
   const onFileChange = e => {
@@ -19,8 +28,12 @@ const Profile = ({ user, loading, coupons, uploadUserImage }) => {
     }
   }, [profileImg]);
 
-  const usedCount = coupons.filter(coupon => coupon.used).length;
-  const useRate = (usedCount / coupons.length) * 100;
+  useEffect(() => {
+    getPersonalHistory();
+  }, []);
+
+  // const usedCount = coupons.filter((coupon) => coupon.used).length;
+  // const useRate = (usedCount / coupons.length) * 100;
 
   return loading || !user ? (
     <Spinner />
@@ -67,9 +80,15 @@ const Profile = ({ user, loading, coupons, uploadUserImage }) => {
           <h3 className='my-4'>{user.name}</h3>
           <h5 className='mb-5'>{user.email}</h5>
 
-          <p>Total Coupons: {coupons.length}</p>
-          <p>Coupons Used: {usedCount}</p>
-          <p>{coupons.length > 0 && `Usage Rate: ${useRate.toFixed(2)}%`}</p>
+          <p>Total Coupons: {totalCouponsCount}</p>
+          <p>Coupons Used: {totalUsedCouponsCount}</p>
+          <p>
+            {totalCouponsCount > 0 &&
+              `Usage Rate: ${(
+                (totalUsedCouponsCount / totalCouponsCount) *
+                100
+              ).toFixed(2)}%`}
+          </p>
         </div>
       </div>
     </Fragment>
@@ -79,13 +98,19 @@ const Profile = ({ user, loading, coupons, uploadUserImage }) => {
 Profile.propTypes = {
   loading: PropTypes.bool.isRequired,
   coupons: PropTypes.array.isRequired,
-  uploadUserImage: PropTypes.func.isRequired
+  uploadUserImage: PropTypes.func.isRequired,
+  getPersonalHistory: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
   user: state.auth.user,
   loading: state.auth.loading,
-  coupons: state.coupon.coupons
+  coupons: state.coupon.coupons,
+  totalCouponsCount: state.history.totalCouponsCount,
+  totalUsedCouponsCount: state.history.totalUsedCouponsCount
 });
 
-export default connect(mapStateToProps, { uploadUserImage })(Profile);
+export default connect(mapStateToProps, {
+  uploadUserImage,
+  getPersonalHistory
+})(Profile);
