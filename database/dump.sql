@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.14 (Ubuntu 10.14-0ubuntu0.18.04.1)
--- Dumped by pg_dump version 10.14 (Ubuntu 10.14-0ubuntu0.18.04.1)
+-- Dumped from database version 10.12 (Ubuntu 10.12-0ubuntu0.18.04.1)
+-- Dumped by pg_dump version 10.12 (Ubuntu 10.12-0ubuntu0.18.04.1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -17,13 +17,17 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 ALTER TABLE ONLY public.users DROP CONSTRAINT users_pkey;
+ALTER TABLE ONLY public.history DROP CONSTRAINT history_pkey;
 ALTER TABLE ONLY public.coupons DROP CONSTRAINT coupons_pkey;
 ALTER TABLE ONLY public.categories DROP CONSTRAINT categories_pkey;
 ALTER TABLE public.users ALTER COLUMN user_id DROP DEFAULT;
+ALTER TABLE public.history ALTER COLUMN history_id DROP DEFAULT;
 ALTER TABLE public.coupons ALTER COLUMN coupon_id DROP DEFAULT;
 ALTER TABLE public.categories ALTER COLUMN category_id DROP DEFAULT;
 DROP SEQUENCE public.users_user_id_seq;
 DROP TABLE public.users;
+DROP SEQUENCE public.history_history_id_seq;
+DROP TABLE public.history;
 DROP SEQUENCE public.coupons_coupon_id_seq;
 DROP TABLE public.coupons;
 DROP SEQUENCE public.categories_category_id_seq;
@@ -129,6 +133,40 @@ ALTER SEQUENCE public.coupons_coupon_id_seq OWNED BY public.coupons.coupon_id;
 
 
 --
+-- Name: history; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.history (
+    history_id integer NOT NULL,
+    coupon_id integer NOT NULL,
+    user_id integer NOT NULL,
+    created_at timestamp with time zone DEFAULT now() NOT NULL,
+    used_at timestamp with time zone,
+    used boolean DEFAULT false
+);
+
+
+--
+-- Name: history_history_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.history_history_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: history_history_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.history_history_id_seq OWNED BY public.history.history_id;
+
+
+--
 -- Name: users; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -178,6 +216,13 @@ ALTER TABLE ONLY public.coupons ALTER COLUMN coupon_id SET DEFAULT nextval('publ
 
 
 --
+-- Name: history history_id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.history ALTER COLUMN history_id SET DEFAULT nextval('public.history_history_id_seq'::regclass);
+
+
+--
 -- Name: users user_id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -202,57 +247,61 @@ COPY public.categories (category_id, category) FROM stdin;
 
 COPY public.coupons (coupon_id, user_id, merchant, discount, category_id, expiration_date, created_at, used) FROM stdin;
 3	4	AMC	1 free large drink	4	\N	2020-06-17 04:48:10.211285+00	f
-39	3	Marriott	1 free night up to 35K	2	2021-01-31T20:00:00.000Z	2020-07-05 22:50:50.093706+00	f
-41	3	Ruth's Chris Steak House	$25 off with any entree purchase	1	2020-11-30T20:00:00.000Z	2020-07-05 23:16:15.650156+00	f
+123	20	Alaska Airline	Flight ticket buy one, get one with $99. Log in account to redeem	2	2021-09-30T19:00:00.000Z	2020-10-06 23:57:29.341895+00	f
+124	20	Boiling Point	$10 off with pot order. Redeem in app	1	2020-11-30T20:00:00.000Z	2020-10-06 23:58:32.730463+00	f
 72	16	hi	hi	1	2020-08-09T02:41:30.637Z	2020-08-09 02:41:42.685644+00	t
 73	16	jjj	jjj	1	2020-08-09T02:41:54.353Z	2020-08-09 02:42:01.441312+00	t
 74	16	jjj	jjj	1	2020-08-09T02:42:06.045Z	2020-08-09 02:42:11.907882+00	f
 75	16	kkk	kkk	1	2020-08-09T02:42:15.062Z	2020-08-09 02:42:21.115329+00	f
-68	3	Dunkin Dount	1 free beverage	1	2020-08-15T19:00:00.000Z	2020-07-31 05:36:14.916809+00	t
-53	3	Chipotle	1 free meal	1	2020-07-11T20:06:06.590Z	2020-07-11 20:06:24.904242+00	t
-37	3	Calvin Klein	20% off birthday coupon	5	2020-07-31T19:00:00.000Z	2020-07-05 20:43:35.302883+00	t
-57	3	Gina's Pizza	Pizza BOGO	1	2020-07-25T19:00:00.000Z	2020-07-19 20:01:52.90786+00	f
-55	3	Portola Coffee	1 free beverage	1	2020-07-25T19:00:00.000Z	2020-07-19 20:00:20.890062+00	t
-54	3	Churned Creamery	1 free single scoop of ice cream	1	2020-07-25T19:00:00.000Z	2020-07-19 19:59:05.393333+00	t
-56	3	Ding Tea - Irvine	Drink BOGO	1	2020-07-25T19:00:00.000Z	2020-07-19 20:00:55.016991+00	t
-31	3	Shell	Use app pay with PayPal $3 off 	5	2020-07-31T19:00:00.000Z	2020-07-03 18:14:19.189666+00	t
-59	3	Fast5xpress	1 free silver car wash, bring printed email	5	2020-08-08T19:00:00.000Z	2020-07-19 20:09:10.576278+00	t
-40	3	Hyatt	1 free night up to category 4	2	2021-01-01T20:00:00.000Z	2020-07-05 22:58:22.863846+00	t
-62	3	Starbucks	Birthday 1 free drink on 7/25 only	1	2020-07-25T19:00:00.000Z	2020-07-23 18:22:20.78677+00	t
-65	3	Farmer Boys	1 free entree	1	2020-08-06T19:00:00.000Z	2020-07-26 03:32:34.053985+00	f
-64	3	Boiling Point	$10 off any purchase	1	2020-08-02T19:00:00.000Z	2020-07-25 08:30:37.280104+00	t
-71	3	85 Cafe	1 free M sea salt oolong tea	1	2020-08-31T19:00:00.000Z	2020-08-08 22:42:42.755243+00	t
-66	3	85 Cafe	1 free birthday cake	1	2020-07-31T19:00:00.000Z	2020-07-28 23:58:45.081582+00	t
-38	3	Peet's 	1 free beverage, any size	1	2020-12-31T20:00:00.000Z	2020-07-05 20:47:53.615886+00	f
-69	3	AMC	1 free beverage	4	2020-12-31T20:00:00.000Z	2020-08-02 18:15:47.718945+00	f
-67	3	85 Cafe	1 free sea salt drink, size M	1	2020-08-15T19:00:00.000Z	2020-07-28 23:59:50.751598+00	t
+125	20	Kura Sushi	$5 off with order over $15. Redeem with email coupon	1	2020-11-15T20:00:00.000Z	2020-10-06 23:59:24.642953+00	f
+126	20	AMC	1 free movie ticket with coupon	4	2020-10-31T19:00:00.000Z	2020-10-07 00:00:05.716376+00	f
+127	20	Regal Theatre	1 free small popcorn, redeem in app	4	2020-11-06T20:00:00.000Z	2020-10-07 00:01:06.856987+00	f
+128	20	85 Cafe	1 free 85C coffee, size M	1	2020-10-31T19:00:00.000Z	2020-10-07 00:01:59.196224+00	f
+129	20	Dave & Busters	$10 free game play. redeem with email coupon	4	2020-10-24T19:00:00.000Z	2020-10-07 00:02:46.623128+00	f
+130	20	Amazon	$10 off with order over $50. Pay with AMEX card	5	2020-11-20T20:00:00.000Z	2020-10-07 00:04:24.284561+00	f
+131	20	IKEA	$10 off in store purchase with email coupon	5	2020-10-31T19:00:00.000Z	2020-10-07 00:05:05.553656+00	f
+132	20	Pusheen Shop	1 free Pusheen Box with email coupon	5	2020-10-19T19:00:00.000Z	2020-10-07 00:07:56.06812+00	f
+133	20	Marriot Bonvoy	3 reward nights up to 50K points	2	2021-12-31T20:00:00.000Z	2020-10-07 00:10:21.180954+00	f
+134	20	Starbucks Coffee	1 free beverage any size, redeem in app	1	2020-11-29T20:00:00.000Z	2020-10-07 00:12:00.418904+00	f
 79	17	AMC	20% Family tickets to AMC on a weekday	4	2020-11-27T20:00:00.000Z	2020-08-26 22:09:33.817213+00	f
-61	3	Noah's Bagel	Birthday free egg sandwich	1	2020-09-03T19:00:00.000Z	2020-07-22 23:40:26.88416+00	t
-78	3	Kura Sushi	$5 off with order over $15	1	2020-09-18T19:00:00.000Z	2020-08-15 06:00:53.347489+00	f
-76	3	IHG	1 free anniversary reward night under 40,000 point	2	2020-12-31T20:00:00.000Z	2020-08-10 21:50:58.513203+00	t
-80	3	IKEA	$10 off and 1 free frozen yogurt	5	2020-10-31T19:00:00.000Z	2020-09-01 18:19:08.505716+00	t
-81	20	AMC	1 free movie ticket	4	2020-10-31T19:00:00.000Z	2020-09-08 04:11:54.066891+00	f
-82	20	Marriot Bonvoy	1 free night for rooms under 50,000 points.	2	2020-12-31T20:00:00.000Z	2020-09-08 04:17:05.472628+00	f
-85	20	Boiling Point	$10 off with pot order	1	2020-10-01T19:00:00.000Z	2020-09-08 04:21:58.504202+00	f
-86	20	Regal	1 free small popcorn	4	2020-10-15T19:00:00.000Z	2020-09-08 04:22:30.02875+00	f
-87	20	85 Cafe	1 free 85C coffee, size M	1	2020-10-30T19:00:00.000Z	2020-09-08 04:24:02.619422+00	f
-88	20	Dave & Busters	$10 free game play	4	2020-10-19T19:00:00.000Z	2020-09-08 04:25:13.255536+00	f
-89	20	Alaska Airline	Flight ticket buy one get one with $99	2	2020-10-04T19:00:00.000Z	2020-09-08 04:26:18.781742+00	f
-90	20	Ralphs	1 free large eggs	5	2020-10-04T19:00:00.000Z	2020-09-08 04:27:51.614309+00	f
-93	20	Peet's	1 free beverage, any size	1	2020-10-10T19:00:00.000Z	2020-09-08 21:33:26.711475+00	f
-100	3	Tender Greens	$3 off $15 order	1	2020-09-27T19:00:00.000Z	2020-09-14 19:00:52.73915+00	t
-70	3	AMC	Birthday 1 free drink and popcorn, plus $5 reward	4	2020-10-31T19:00:00.000Z	2020-08-07 22:51:29.592813+00	f
-60	3	Dunkin Dount	1 free beverage, any size	1	2020-12-06T20:00:00.000Z	2020-07-22 22:43:13.108484+00	f
-84	20	Kura Sushi	$5 off with order over $15	1	2020-09-15T19:00:00.000Z	2020-09-08 04:21:26.840522+00	f
-102	3	Panera Bread	$10 off coupon x2 	1	2020-10-22T19:00:00.000Z	2020-09-23 02:54:04.473637+00	f
-91	20	Amazon	$25 off any purchase	5	2020-11-30T20:00:00.000Z	2020-09-08 04:28:51.982365+00	f
-83	20	Starbucks	1 free drink, any size	1	2020-10-11T19:00:00.000Z	2020-09-08 04:20:32.982835+00	f
-94	20	Ruth's Chris Steak House	$25 off an entree with coupon	1	2020-12-31T20:00:00.000Z	2020-09-08 21:52:16.384475+00	f
-95	20	Pusheen Shop	1 free Pusheen Box with coupon	5	2020-10-14T19:00:00.000Z	2020-09-09 02:51:02.758592+00	f
-92	20	IKEA	$10 off in store purchase	5	2020-10-15T19:00:00.000Z	2020-09-08 04:32:03.464615+00	f
-104	3	Starbucks	1 free drink	1	2020-10-06T19:00:00.000Z	2020-10-01 00:21:46.590972+00	f
-103	3	Target	$5 coupon	5	2020-10-27T19:00:00.000Z	2020-09-28 03:29:55.455535+00	f
-101	3	Farmer Boys	$10 off reward	1	2020-12-31T20:00:00.000Z	2020-09-23 02:23:24.90513+00	t
+116	3	Ruth's Chris Steak House	$25 off with any entree purchase, paper coupon	1	2020-12-31T20:00:00.000Z	2020-10-06 23:29:46.795277+00	f
+117	3	Dunkin Dount	1 free beverage, any size. Redeem in app.	1	2020-12-06T20:00:00.000Z	2020-10-06 23:32:40.452494+00	f
+118	3	AMC	Member birthday 1 free drink and popcorn reward, plus $5 reward dollar. Redeem in app	4	2020-10-31T19:00:00.000Z	2020-10-06 23:35:00.396244+00	f
+119	3	AMC	1 free beverage with email coupon	4	2020-12-31T20:00:00.000Z	2020-10-06 23:37:21.243435+00	f
+120	3	Target	$5 off paper coupon	5	2020-10-27T19:00:00.000Z	2020-10-06 23:38:47.463181+00	f
+121	3	Panera Bread	$10 off coupon x2, redeem in app	1	2020-10-22T19:00:00.000Z	2020-10-06 23:40:54.224173+00	f
+114	3	Peet's Coffee	1 free beverage, any size	1	2020-12-31T20:00:00.000Z	2020-10-06 23:26:05.12088+00	f
+115	3	Marriott	1 free reward night up to 35K points	2	2021-01-31T20:00:00.000Z	2020-10-06 23:27:55.300577+00	f
+122	3	Starbucks Coffee	1 free beverage any size. Redeem in app	1	2020-10-06T23:41:54.383Z	2020-10-06 23:42:15.816677+00	t
+\.
+
+
+--
+-- Data for Name: history; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.history (history_id, coupon_id, user_id, created_at, used_at, used) FROM stdin;
+6	114	3	2020-10-06 23:26:05.126372+00	\N	f
+8	116	3	2020-10-06 23:29:46.79727+00	\N	f
+9	117	3	2020-10-06 23:32:40.456128+00	\N	f
+10	118	3	2020-10-06 23:35:00.398168+00	\N	f
+11	119	3	2020-10-06 23:37:21.245011+00	\N	f
+12	120	3	2020-10-06 23:38:47.466097+00	\N	f
+13	121	3	2020-10-06 23:40:54.227678+00	\N	f
+7	115	3	2020-10-06 23:27:55.302336+00	\N	f
+14	122	3	2020-10-06 23:42:15.818246+00	2020-10-06 23:47:58.653+00	t
+15	123	20	2020-10-06 23:57:29.343661+00	\N	f
+16	124	20	2020-10-06 23:58:32.732415+00	\N	f
+17	125	20	2020-10-06 23:59:24.645181+00	\N	f
+18	126	20	2020-10-07 00:00:05.718127+00	\N	f
+19	127	20	2020-10-07 00:01:06.858769+00	\N	f
+20	128	20	2020-10-07 00:01:59.19764+00	\N	f
+21	129	20	2020-10-07 00:02:46.625173+00	\N	f
+22	130	20	2020-10-07 00:04:24.286946+00	\N	f
+23	131	20	2020-10-07 00:05:05.5609+00	\N	f
+24	132	20	2020-10-07 00:07:56.070512+00	\N	f
+25	133	20	2020-10-07 00:10:21.183801+00	\N	f
+26	134	20	2020-10-07 00:12:00.420773+00	\N	f
 \.
 
 
@@ -292,7 +341,14 @@ SELECT pg_catalog.setval('public.categories_category_id_seq', 5, true);
 -- Name: coupons_coupon_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.coupons_coupon_id_seq', 104, true);
+SELECT pg_catalog.setval('public.coupons_coupon_id_seq', 134, true);
+
+
+--
+-- Name: history_history_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.history_history_id_seq', 26, true);
 
 
 --
@@ -316,6 +372,14 @@ ALTER TABLE ONLY public.categories
 
 ALTER TABLE ONLY public.coupons
     ADD CONSTRAINT coupons_pkey PRIMARY KEY (coupon_id);
+
+
+--
+-- Name: history history_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.history
+    ADD CONSTRAINT history_pkey PRIMARY KEY (history_id);
 
 
 --
