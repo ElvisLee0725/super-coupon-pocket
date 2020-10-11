@@ -95,6 +95,62 @@ router.post(
   }
 );
 
+// @route   PATCH /api/users/new-password
+// @desc    Update a user's password
+// @access  Private
+router.patch(
+  '/new-password',
+  auth,
+  [
+    check('oldPassword', 'Please enter your current password').notEmpty(),
+    check(
+      'newPassword',
+      'Please enter a new password with minimum 6 characters'
+    ).isLength({ min: 6 })
+  ],
+  async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return next(new ClientError(errors.array(), 400));
+    }
+
+    const { oldPassword, newPassword } = req.body;
+
+    try {
+      // Check if the old password matches the one user inputs
+      const sqlGetPassword = `
+      SELECT password
+      FROM users
+      WHERE user_id = $1;
+    `;
+      const {
+        rows: [pw = '']
+      } = await db.query(sqlGetPassword, [req.user.id]);
+
+      const isMatch = bcrypt.compareSync(oldPassword, pw.password);
+
+      if (!isMatch) {
+        return next(
+          new ClientError([{ msg: 'Input password does not match' }], 404)
+        );
+      }
+
+      const salt = bcrypt.genSaltSync(10);
+      const hashedPW = bcrypt.hashSync(newPassword, salt);
+
+      // Update the user's password in database
+      const sqlUpdatePassword = `
+        UPDATE users
+        SET password = $1
+        WHERE user_id = $2;
+      `;
+      await db.query(sqlUpdatePassword, [hashedPW, req.user.id]);
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
 // @route   GET /api/users/history-all
 // @desc    Get users personal coupon history
 // @access  Private
