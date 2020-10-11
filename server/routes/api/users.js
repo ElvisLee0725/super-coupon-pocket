@@ -102,7 +102,7 @@ router.patch(
   '/new-password',
   auth,
   [
-    check('oldPassword', 'Please enter your current password').notEmpty(),
+    check('curPassword', 'Please enter your current password').notEmpty(),
     check(
       'newPassword',
       'Please enter a new password with minimum 6 characters'
@@ -114,7 +114,7 @@ router.patch(
       return next(new ClientError(errors.array(), 400));
     }
 
-    const { oldPassword, newPassword } = req.body;
+    const { curPassword, newPassword } = req.body;
 
     try {
       // Check if the old password matches the one user inputs
@@ -127,7 +127,7 @@ router.patch(
         rows: [pw = '']
       } = await db.query(sqlGetPassword, [req.user.id]);
 
-      const isMatch = bcrypt.compareSync(oldPassword, pw.password);
+      const isMatch = bcrypt.compareSync(curPassword, pw.password);
 
       if (!isMatch) {
         return next(
@@ -145,6 +145,7 @@ router.patch(
         WHERE user_id = $2;
       `;
       await db.query(sqlUpdatePassword, [hashedPW, req.user.id]);
+      res.send({ msg: 'New password is updated successfully' });
     } catch (err) {
       next(err);
     }
