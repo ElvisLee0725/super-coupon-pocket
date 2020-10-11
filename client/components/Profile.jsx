@@ -5,13 +5,15 @@ import PropTypes from 'prop-types';
 import Spinner from './Spinner';
 import { uploadUserImage } from '../actions/auth';
 import { getPersonalHistory } from '../actions/history';
+import { setAlert } from '../actions/alert';
+import axios from 'axios';
 
 const Profile = ({
   user,
   loading,
-  coupons,
   totalCouponsCount,
   totalUsedCouponsCount,
+  setAlert,
   uploadUserImage,
   getPersonalHistory
 }) => {
@@ -32,8 +34,41 @@ const Profile = ({
     getPersonalHistory();
   }, []);
 
-  // const usedCount = coupons.filter((coupon) => coupon.used).length;
-  // const useRate = (usedCount / coupons.length) * 100;
+  const [passwordData, setPasswordData] = useState({
+    curPassword: '',
+    newPassword: '',
+    rePassword: ''
+  });
+
+  const { curPassword, newPassword, rePassword } = passwordData;
+
+  const handlePasswordChange = e => {
+    setPasswordData({ ...passwordData, [e.target.name]: e.target.value });
+  };
+
+  const passwordUpdate = async e => {
+    e.preventDefault();
+    if (newPassword !== rePassword) {
+      setAlert('Password do not match', 'danger');
+    } else {
+      const config = { headers: { 'Content-Type': 'application/json' } };
+      const body = JSON.stringify({
+        curPassword,
+        newPassword
+      });
+      try {
+        const res = await axios.patch('/api/users/new-password', body, config);
+        setAlert(res.data.msg, 'success');
+      } catch (err) {
+        const errors = err.response.data.error;
+        if (errors) {
+          errors.forEach(error => {
+            setAlert(error.msg, 'danger');
+          });
+        }
+      }
+    }
+  };
 
   return loading || !user ? (
     <Spinner />
@@ -80,6 +115,42 @@ const Profile = ({
           <h3 className='my-4'>{user.name}</h3>
           <h5 className='mb-5'>{user.email}</h5>
 
+          <form onSubmit={e => passwordUpdate(e)}>
+            <div className='form-group'>
+              <input
+                type='password'
+                className='form-control'
+                placeholder='Current Password'
+                name='curPassword'
+                value={curPassword}
+                onChange={e => handlePasswordChange(e)}
+              />
+            </div>
+            <div className='form-group'>
+              <input
+                type='password'
+                className='form-control'
+                placeholder='New Password'
+                name='newPassword'
+                value={newPassword}
+                onChange={e => handlePasswordChange(e)}
+              />
+            </div>
+            <div className='form-group'>
+              <input
+                type='password'
+                className='form-control'
+                placeholder='Confirm Password'
+                name='rePassword'
+                value={rePassword}
+                onChange={e => handlePasswordChange(e)}
+              />
+            </div>
+            <button type='submit' className='btn btn-themeBlue'>
+              Update
+            </button>
+          </form>
+
           <p>Total Coupons: {totalCouponsCount}</p>
           <p>Coupons Used: {totalUsedCouponsCount}</p>
           <p>
@@ -97,7 +168,7 @@ const Profile = ({
 
 Profile.propTypes = {
   loading: PropTypes.bool.isRequired,
-  coupons: PropTypes.array.isRequired,
+  setAlert: PropTypes.func.isRequired,
   uploadUserImage: PropTypes.func.isRequired,
   getPersonalHistory: PropTypes.func.isRequired
 };
@@ -105,12 +176,12 @@ Profile.propTypes = {
 const mapStateToProps = state => ({
   user: state.auth.user,
   loading: state.auth.loading,
-  coupons: state.coupon.coupons,
   totalCouponsCount: state.history.totalCouponsCount,
   totalUsedCouponsCount: state.history.totalUsedCouponsCount
 });
 
 export default connect(mapStateToProps, {
+  setAlert,
   uploadUserImage,
   getPersonalHistory
 })(Profile);
