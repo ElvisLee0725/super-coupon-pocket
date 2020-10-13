@@ -49,7 +49,7 @@ const Profile = ({
   const passwordUpdate = async e => {
     e.preventDefault();
     if (newPassword !== rePassword) {
-      setAlert('Password do not match', 'danger');
+      setAlert('New password does not match', 'danger');
     } else {
       const config = { headers: { 'Content-Type': 'application/json' } };
       const body = JSON.stringify({
@@ -59,6 +59,13 @@ const Profile = ({
       try {
         const res = await axios.patch('/api/users/new-password', body, config);
         setAlert(res.data.msg, 'success');
+        setPasswordData({
+          curPassword: '',
+          newPassword: '',
+          rePassword: ''
+        });
+
+        $('#passwordChangeForm').collapse('hide');
       } catch (err) {
         const errors = err.response.data.error;
         if (errors) {
@@ -115,51 +122,69 @@ const Profile = ({
           <h3 className='my-4'>{user.name}</h3>
           <h5 className='mb-5'>{user.email}</h5>
 
-          <form onSubmit={e => passwordUpdate(e)}>
-            <div className='form-group'>
-              <input
-                type='password'
-                className='form-control'
-                placeholder='Current Password'
-                name='curPassword'
-                value={curPassword}
-                onChange={e => handlePasswordChange(e)}
-              />
-            </div>
-            <div className='form-group'>
-              <input
-                type='password'
-                className='form-control'
-                placeholder='New Password'
-                name='newPassword'
-                value={newPassword}
-                onChange={e => handlePasswordChange(e)}
-              />
-            </div>
-            <div className='form-group'>
-              <input
-                type='password'
-                className='form-control'
-                placeholder='Confirm Password'
-                name='rePassword'
-                value={rePassword}
-                onChange={e => handlePasswordChange(e)}
-              />
-            </div>
-            <button type='submit' className='btn btn-themeBlue'>
-              Update
-            </button>
-          </form>
+          <a
+            className='btn btn-themeBlue'
+            data-toggle='collapse'
+            href='#passwordChangeForm'
+            role='button'
+            aria-expanded='false'
+            aria-controls='passwordChangeForm'
+          >
+            Change Password
+          </a>
 
-          <p>Total Coupons: {totalCouponsCount}</p>
-          <p>Coupons Used: {totalUsedCouponsCount}</p>
-          <p>
-            {totalCouponsCount > 0 &&
-              `Usage Rate: ${(
-                (totalUsedCouponsCount / totalCouponsCount) *
-                100
-              ).toFixed(2)}%`}
-          </p>
+          <div className='collapse' id='passwordChangeForm'>
+            <form
+              className='my-3 mx-auto profile-change-pw__form'
+              onSubmit={e => passwordUpdate(e)}
+            >
+              <div className='form-group'>
+                <input
+                  type='password'
+                  className='form-control input-field font-italic'
+                  placeholder='Current Password'
+                  name='curPassword'
+                  value={curPassword}
+                  onChange={e => handlePasswordChange(e)}
+                />
+              </div>
+              <div className='form-group'>
+                <input
+                  type='password'
+                  className='form-control input-field font-italic'
+                  placeholder='New Password'
+                  name='newPassword'
+                  value={newPassword}
+                  onChange={e => handlePasswordChange(e)}
+                />
+              </div>
+              <div className='form-group'>
+                <input
+                  type='password'
+                  className='form-control input-field font-italic'
+                  placeholder='Confirm Password'
+                  name='rePassword'
+                  value={rePassword}
+                  onChange={e => handlePasswordChange(e)}
+                />
+              </div>
+              <button type='submit' className='btn btn-delete btn-block'>
+                Update
+              </button>
+            </form>
+          </div>
+
+          <div className='mt-3'>
+            <p>Total Coupons: {totalCouponsCount}</p>
+            <p>Coupons Used: {totalUsedCouponsCount}</p>
+            <p>
+              {totalCouponsCount > 0 &&
+                `Usage Rate: ${(
+                  (totalUsedCouponsCount / totalCouponsCount) *
+                  100
+                ).toFixed(2)}%`}
+            </p>
+          </div>
         </div>
       </div>
     </Fragment>
