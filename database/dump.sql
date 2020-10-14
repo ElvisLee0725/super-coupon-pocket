@@ -263,13 +263,13 @@ COPY public.coupons (coupon_id, user_id, merchant, discount, category_id, expira
 132	20	Pusheen Shop	1 free Pusheen Box with email coupon	5	2020-10-19T19:00:00.000Z	2020-10-07 00:07:56.06812+00	f
 133	20	Marriot Bonvoy	3 reward nights up to 50K points	2	2021-12-31T20:00:00.000Z	2020-10-07 00:10:21.180954+00	f
 134	20	Starbucks Coffee	1 free beverage any size, redeem in app	1	2020-11-29T20:00:00.000Z	2020-10-07 00:12:00.418904+00	f
+121	3	Panera Bread	$10 off coupon x2, redeem in app	1	2020-10-22T19:00:00.000Z	2020-10-06 23:40:54.224173+00	t
 79	17	AMC	20% Family tickets to AMC on a weekday	4	2020-11-27T20:00:00.000Z	2020-08-26 22:09:33.817213+00	f
 116	3	Ruth's Chris Steak House	$25 off with any entree purchase, paper coupon	1	2020-12-31T20:00:00.000Z	2020-10-06 23:29:46.795277+00	f
 117	3	Dunkin Dount	1 free beverage, any size. Redeem in app.	1	2020-12-06T20:00:00.000Z	2020-10-06 23:32:40.452494+00	f
 118	3	AMC	Member birthday 1 free drink and popcorn reward, plus $5 reward dollar. Redeem in app	4	2020-10-31T19:00:00.000Z	2020-10-06 23:35:00.396244+00	f
 119	3	AMC	1 free beverage with email coupon	4	2020-12-31T20:00:00.000Z	2020-10-06 23:37:21.243435+00	f
 120	3	Target	$5 off paper coupon	5	2020-10-27T19:00:00.000Z	2020-10-06 23:38:47.463181+00	f
-121	3	Panera Bread	$10 off coupon x2, redeem in app	1	2020-10-22T19:00:00.000Z	2020-10-06 23:40:54.224173+00	f
 114	3	Peet's Coffee	1 free beverage, any size	1	2020-12-31T20:00:00.000Z	2020-10-06 23:26:05.12088+00	f
 115	3	Marriott	1 free reward night up to 35K points	2	2021-01-31T20:00:00.000Z	2020-10-06 23:27:55.300577+00	f
 122	3	Starbucks Coffee	1 free beverage any size. Redeem in app	1	2020-10-06T23:41:54.383Z	2020-10-06 23:42:15.816677+00	t
@@ -287,7 +287,6 @@ COPY public.history (history_id, coupon_id, user_id, created_at, used_at, used) 
 10	118	3	2020-10-06 23:35:00.398168+00	\N	f
 11	119	3	2020-10-06 23:37:21.245011+00	\N	f
 12	120	3	2020-10-06 23:38:47.466097+00	\N	f
-13	121	3	2020-10-06 23:40:54.227678+00	\N	f
 7	115	3	2020-10-06 23:27:55.302336+00	\N	f
 14	122	3	2020-10-06 23:42:15.818246+00	2020-10-06 23:47:58.653+00	t
 15	123	20	2020-10-06 23:57:29.343661+00	\N	f
@@ -302,6 +301,7 @@ COPY public.history (history_id, coupon_id, user_id, created_at, used_at, used) 
 24	132	20	2020-10-07 00:07:56.070512+00	\N	f
 25	133	20	2020-10-07 00:10:21.183801+00	\N	f
 26	134	20	2020-10-07 00:12:00.420773+00	\N	f
+13	121	3	2020-10-06 23:40:54.227678+00	2020-10-14 18:36:17.014+00	t
 \.
 
 
@@ -326,7 +326,7 @@ COPY public.users (user_id, name, email, password, created_at, avatar_url, profi
 17	Tim	a@b.cd	$2a$10$yMQIJMUECYnOWEW0VOSqKez46U1J74KE75ssbzI0IR8LOrJOjR/22	2020-08-26 22:08:27.283839+00	//www.gravatar.com/avatar/3a4651447c3ffc65b7a04611a4355a33?s=200&r=pg&d=mm	\N
 20	John Doe	guest@demo.com	$2a$10$pZmzCljZAilxwtiyu5PbFuUhQM9HALumxQazq3SRkWhR/Z6hqI1cy	2020-09-07 23:50:27.372952+00	//www.gravatar.com/avatar/52f88efd0890e268fe8f4486c1a3e16a?s=200&r=pg&d=mm	\N
 21	John Smith	demo@test.com	$2a$10$pti9WHAS1luXnoi6elk8PuK2BmdoZrYM14Yt/a6VANwnYLBQ/vqQe	2020-09-12 03:57:51.240734+00	//www.gravatar.com/avatar/7b6cfb77576b5a89d7a5f29fcbe3a60c?s=200&r=pg&d=mm	\N
-3	Elvis Lee	elvislee0725@gmail.com	$2a$10$B74miPPFTn3fAQl/P/2ydOLhFCbQjkY58f1mqTaVkXMikKRE4vN.C	2020-06-14 21:44:45.123988+00	//www.gravatar.com/avatar/aaf2b27e19c09ec4a8173b0c0723e106?s=200&r=pg&d=mm	scp/images/userProfile/be24f799-67a3-4d0a-8ad0-874fbdfe2fae-profile1.jpg
+3	Elvis Lee	elvislee0725@gmail.com	$2a$10$z6HzHe0tlhWnlSGDvTm80.SDKdJAOgZ4.F48.ehzct2E.yDdNh0je	2020-06-14 21:44:45.123988+00	//www.gravatar.com/avatar/aaf2b27e19c09ec4a8173b0c0723e106?s=200&r=pg&d=mm	scp/images/userProfile/be24f799-67a3-4d0a-8ad0-874fbdfe2fae-profile1.jpg
 \.
 
 
