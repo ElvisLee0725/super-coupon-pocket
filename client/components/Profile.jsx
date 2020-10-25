@@ -122,7 +122,7 @@ const Profile = ({
           <h3 className='my-4'>{user.name}</h3>
           <h5 className='mb-5'>{user.email}</h5>
 
-          <a
+          { user.user_id !== 20 && <a
             className='btn btn-themeBlue'
             data-toggle='collapse'
             href='#passwordChangeForm'
@@ -131,7 +131,7 @@ const Profile = ({
             aria-controls='passwordChangeForm'
           >
             Change Password
-          </a>
+          </a> }
 
           <div className='collapse' id='passwordChangeForm'>
             <form
