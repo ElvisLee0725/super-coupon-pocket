@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.14 (Ubuntu 10.14-0ubuntu0.18.04.1)
--- Dumped by pg_dump version 10.14 (Ubuntu 10.14-0ubuntu0.18.04.1)
+-- Dumped from database version 10.12 (Ubuntu 10.12-0ubuntu0.18.04.1)
+-- Dumped by pg_dump version 10.12 (Ubuntu 10.12-0ubuntu0.18.04.1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -108,7 +108,8 @@ CREATE TABLE public.coupons (
     category_id integer NOT NULL,
     expiration_date character varying(255),
     created_at timestamp(6) with time zone DEFAULT now() NOT NULL,
-    used boolean DEFAULT false NOT NULL
+    used boolean DEFAULT false NOT NULL,
+    update_at timestamp without time zone
 );
 
 
@@ -245,37 +246,39 @@ COPY public.categories (category_id, category) FROM stdin;
 -- Data for Name: coupons; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.coupons (coupon_id, user_id, merchant, discount, category_id, expiration_date, created_at, used) FROM stdin;
-3	4	AMC	1 free large drink	4	\N	2020-06-17 04:48:10.211285+00	f
-123	20	Alaska Airline	Flight ticket buy one, get one with $99. Log in account to redeem	2	2021-09-30T19:00:00.000Z	2020-10-06 23:57:29.341895+00	f
-124	20	Boiling Point	$10 off with pot order. Redeem in app	1	2020-11-30T20:00:00.000Z	2020-10-06 23:58:32.730463+00	f
-72	16	hi	hi	1	2020-08-09T02:41:30.637Z	2020-08-09 02:41:42.685644+00	t
-73	16	jjj	jjj	1	2020-08-09T02:41:54.353Z	2020-08-09 02:42:01.441312+00	t
-74	16	jjj	jjj	1	2020-08-09T02:42:06.045Z	2020-08-09 02:42:11.907882+00	f
-75	16	kkk	kkk	1	2020-08-09T02:42:15.062Z	2020-08-09 02:42:21.115329+00	f
-126	20	AMC	1 free movie ticket with coupon	4	2020-10-31T19:00:00.000Z	2020-10-07 00:00:05.716376+00	f
-128	20	85 Cafe	1 free 85C coffee, size M	1	2020-10-31T19:00:00.000Z	2020-10-07 00:01:59.196224+00	f
-129	20	Dave & Busters	$10 free game play. redeem with email coupon	4	2020-10-24T19:00:00.000Z	2020-10-07 00:02:46.623128+00	f
-131	20	IKEA	$10 off in store purchase with email coupon	5	2020-10-31T19:00:00.000Z	2020-10-07 00:05:05.553656+00	f
-132	20	Pusheen Shop	1 free Pusheen Box with email coupon	5	2020-10-19T19:00:00.000Z	2020-10-07 00:07:56.06812+00	f
-121	3	Panera Bread	$10 off coupon x2, redeem in app	1	2020-10-22T19:00:00.000Z	2020-10-06 23:40:54.224173+00	t
-120	3	Target	$5 off paper coupon	5	2020-10-27T19:00:00.000Z	2020-10-06 23:38:47.463181+00	t
-79	17	AMC	20% Family tickets to AMC on a weekday	4	2020-11-27T20:00:00.000Z	2020-08-26 22:09:33.817213+00	f
-116	3	Ruth's Chris Steak House	$25 off with any entree purchase, paper coupon	1	2020-12-31T20:00:00.000Z	2020-10-06 23:29:46.795277+00	f
-117	3	Dunkin Dount	1 free beverage, any size. Redeem in app.	1	2020-12-06T20:00:00.000Z	2020-10-06 23:32:40.452494+00	f
-119	3	AMC	1 free beverage with email coupon	4	2020-12-31T20:00:00.000Z	2020-10-06 23:37:21.243435+00	f
-114	3	Peet's Coffee	1 free beverage, any size	1	2020-12-31T20:00:00.000Z	2020-10-06 23:26:05.12088+00	f
-115	3	Marriott	1 free reward night up to 35K points	2	2021-01-31T20:00:00.000Z	2020-10-06 23:27:55.300577+00	f
-122	3	Starbucks Coffee	1 free beverage any size. Redeem in app	1	2020-10-06T23:41:54.383Z	2020-10-06 23:42:15.816677+00	t
-137	3	Kura Sushi	$5 off with min $15 order, scan coupon in email.	1	2020-11-21T20:00:00.000Z	2020-10-28 18:09:07.577158+00	f
-118	3	AMC	Member birthday 1 free drink and popcorn reward, plus $5 reward dollar. Redeem in app	4	2020-10-31T19:00:00.000Z	2020-10-06 23:35:00.396244+00	t
-135	3	El Pollo Loco	1 free burrito	1	2020-11-02T20:00:00.000Z	2020-10-21 21:24:35.921324+00	t
-136	3	Yoshinoya	1 free regular bowl with drink purchase	1	2020-11-05T20:00:00.000Z	2020-10-21 21:54:47.880969+00	t
-130	20	Amazon	$10 off with order over $50. Pay with AMEX card	5	2020-11-20T20:00:00.000Z	2020-10-07 00:04:24.284561+00	t
-127	20	Regal Theatre	1 free small popcorn, redeem in app	4	2020-11-06T20:00:00.000Z	2020-10-07 00:01:06.856987+00	t
-125	20	Kura Sushi	$5 off with order over $15. Redeem with email coupon	1	2020-11-15T20:00:00.000Z	2020-10-06 23:59:24.642953+00	t
-134	20	Starbucks Coffee	1 free beverage any size, redeem in app	1	2020-11-29T20:00:00.000Z	2020-10-07 00:12:00.418904+00	t
-138	3	PayPal	Order $25 doordash with $10 off to pay with PayPal	5	2020-11-05T20:00:00.000Z	2020-10-29 21:25:59.867477+00	t
+COPY public.coupons (coupon_id, user_id, merchant, discount, category_id, expiration_date, created_at, used, update_at) FROM stdin;
+3	4	AMC	1 free large drink	4	\N	2020-06-17 04:48:10.211285+00	f	2020-06-17 04:48:10.211285
+123	20	Alaska Airline	Flight ticket buy one, get one with $99. Log in account to redeem	2	2021-09-30T19:00:00.000Z	2020-10-06 23:57:29.341895+00	f	2020-10-06 23:57:29.341895
+124	20	Boiling Point	$10 off with pot order. Redeem in app	1	2020-11-30T20:00:00.000Z	2020-10-06 23:58:32.730463+00	f	2020-10-06 23:58:32.730463
+72	16	hi	hi	1	2020-08-09T02:41:30.637Z	2020-08-09 02:41:42.685644+00	t	2020-08-09 02:41:42.685644
+73	16	jjj	jjj	1	2020-08-09T02:41:54.353Z	2020-08-09 02:42:01.441312+00	t	2020-08-09 02:42:01.441312
+74	16	jjj	jjj	1	2020-08-09T02:42:06.045Z	2020-08-09 02:42:11.907882+00	f	2020-08-09 02:42:11.907882
+75	16	kkk	kkk	1	2020-08-09T02:42:15.062Z	2020-08-09 02:42:21.115329+00	f	2020-08-09 02:42:21.115329
+125	20	Kura Sushi	$5 off with order over $15. Redeem with email coupon	1	2020-11-15T20:00:00.000Z	2020-10-06 23:59:24.642953+00	f	2020-10-06 23:59:24.642953
+126	20	AMC	1 free movie ticket with coupon	4	2020-10-31T19:00:00.000Z	2020-10-07 00:00:05.716376+00	f	2020-10-07 00:00:05.716376
+127	20	Regal Theatre	1 free small popcorn, redeem in app	4	2020-11-06T20:00:00.000Z	2020-10-07 00:01:06.856987+00	f	2020-10-07 00:01:06.856987
+128	20	85 Cafe	1 free 85C coffee, size M	1	2020-10-31T19:00:00.000Z	2020-10-07 00:01:59.196224+00	f	2020-10-07 00:01:59.196224
+129	20	Dave & Busters	$10 free game play. redeem with email coupon	4	2020-10-24T19:00:00.000Z	2020-10-07 00:02:46.623128+00	f	2020-10-07 00:02:46.623128
+130	20	Amazon	$10 off with order over $50. Pay with AMEX card	5	2020-11-20T20:00:00.000Z	2020-10-07 00:04:24.284561+00	f	2020-10-07 00:04:24.284561
+131	20	IKEA	$10 off in store purchase with email coupon	5	2020-10-31T19:00:00.000Z	2020-10-07 00:05:05.553656+00	f	2020-10-07 00:05:05.553656
+132	20	Pusheen Shop	1 free Pusheen Box with email coupon	5	2020-10-19T19:00:00.000Z	2020-10-07 00:07:56.06812+00	f	2020-10-07 00:07:56.06812
+133	20	Marriot Bonvoy	3 reward nights up to 50K points	2	2021-12-31T20:00:00.000Z	2020-10-07 00:10:21.180954+00	f	2020-10-07 00:10:21.180954
+134	20	Starbucks Coffee	1 free beverage any size, redeem in app	1	2020-11-29T20:00:00.000Z	2020-10-07 00:12:00.418904+00	f	2020-10-07 00:12:00.418904
+121	3	Panera Bread	$10 off coupon x2, redeem in app	1	2020-10-22T19:00:00.000Z	2020-10-06 23:40:54.224173+00	t	2020-10-06 23:40:54.224173
+135	3	El Pollo Loco	1 free burrito	1	2020-11-02T20:00:00.000Z	2020-10-21 21:24:35.921324+00	f	2020-10-21 21:24:35.921324
+136	3	Yoshinoya	1 free regular bowl with drink purchase	1	2020-11-05T20:00:00.000Z	2020-10-21 21:54:47.880969+00	f	2020-10-21 21:54:47.880969
+120	3	Target	$5 off paper coupon	5	2020-10-27T19:00:00.000Z	2020-10-06 23:38:47.463181+00	t	2020-10-06 23:38:47.463181
+79	17	AMC	20% Family tickets to AMC on a weekday	4	2020-11-27T20:00:00.000Z	2020-08-26 22:09:33.817213+00	f	2020-08-26 22:09:33.817213
+116	3	Ruth's Chris Steak House	$25 off with any entree purchase, paper coupon	1	2020-12-31T20:00:00.000Z	2020-10-06 23:29:46.795277+00	f	2020-10-06 23:29:46.795277
+118	3	AMC	Member birthday 1 free drink and popcorn reward, plus $5 reward dollar. Redeem in app	4	2020-10-31T19:00:00.000Z	2020-10-06 23:35:00.396244+00	f	2020-10-06 23:35:00.396244
+114	3	Peet's Coffee	1 free beverage, any size	1	2020-12-31T20:00:00.000Z	2020-10-06 23:26:05.12088+00	f	2020-10-06 23:26:05.12088
+115	3	Marriott	1 free reward night up to 35K points	2	2021-01-31T20:00:00.000Z	2020-10-06 23:27:55.300577+00	f	2020-10-06 23:27:55.300577
+117	3	Dunkin Dount	1 free beverage, any size. Redeem in app.	1	2020-12-20T20:00:00.000Z	2020-10-06 23:32:40.452494+00	f	2020-11-08 02:21:28.733
+119	3	AMC	1 free large beverage, use email coupon	4	2020-12-31T20:00:00.000Z	2020-10-06 23:37:21.243435+00	f	2020-11-08 02:21:49.152
+122	3	Starbucks Coffee	1 free beverage any size. Redeem in app	1	2020-10-06T23:41:54.383Z	2020-10-06 23:42:15.816677+00	t	2020-10-06 23:42:15.816677
+137	3	Ding Tea - Irvine	25% off with Fivestar	1	2020-11-09T20:00:00.000Z	2020-11-08 02:37:38.99777+00	f	2020-11-08 02:37:38.996
+138	3	Chick-fil-A	20% off, pay with CSR and Chase Freedom card.	1	2020-11-23T20:00:00.000Z	2020-11-08 02:40:25.152996+00	f	2020-11-08 02:40:25.151
+139	3	Doordash	$10 off with $30 order	1	2020-11-30T20:00:00.000Z	2020-11-08 02:43:57.057+00	f	2020-11-08 02:43:57.057
 \.
 
 
@@ -286,29 +289,30 @@ COPY public.coupons (coupon_id, user_id, merchant, discount, category_id, expira
 COPY public.history (history_id, coupon_id, user_id, created_at, used_at, used) FROM stdin;
 6	114	3	2020-10-06 23:26:05.126372+00	\N	f
 8	116	3	2020-10-06 23:29:46.79727+00	\N	f
-9	117	3	2020-10-06 23:32:40.456128+00	\N	f
-11	119	3	2020-10-06 23:37:21.245011+00	\N	f
+10	118	3	2020-10-06 23:35:00.398168+00	\N	f
 7	115	3	2020-10-06 23:27:55.302336+00	\N	f
 14	122	3	2020-10-06 23:42:15.818246+00	2020-10-06 23:47:58.653+00	t
 15	123	20	2020-10-06 23:57:29.343661+00	\N	f
 16	124	20	2020-10-06 23:58:32.732415+00	\N	f
+17	125	20	2020-10-06 23:59:24.645181+00	\N	f
 18	126	20	2020-10-07 00:00:05.718127+00	\N	f
+19	127	20	2020-10-07 00:01:06.858769+00	\N	f
 20	128	20	2020-10-07 00:01:59.19764+00	\N	f
 21	129	20	2020-10-07 00:02:46.625173+00	\N	f
+22	130	20	2020-10-07 00:04:24.286946+00	\N	f
 23	131	20	2020-10-07 00:05:05.5609+00	\N	f
 24	132	20	2020-10-07 00:07:56.070512+00	\N	f
 25	133	20	2020-10-07 00:10:21.183801+00	\N	f
+26	134	20	2020-10-07 00:12:00.420773+00	\N	f
 13	121	3	2020-10-06 23:40:54.227678+00	2020-10-14 18:36:17.014+00	t
+27	135	3	2020-10-21 21:24:35.928873+00	\N	f
+28	136	3	2020-10-21 21:54:47.883094+00	\N	f
 12	120	3	2020-10-06 23:38:47.466097+00	2020-10-26 23:14:48.505+00	t
-29	137	3	2020-10-28 18:09:07.582318+00	\N	f
-10	118	3	2020-10-06 23:35:00.398168+00	2020-11-01 02:07:45.803+00	t
-27	135	3	2020-10-21 21:24:35.928873+00	2020-11-01 22:25:37.816+00	t
-28	136	3	2020-10-21 21:54:47.883094+00	2020-11-02 21:27:15.181+00	t
-22	130	20	2020-10-07 00:04:24.286946+00	2020-11-04 18:58:47.125+00	t
-19	127	20	2020-10-07 00:01:06.858769+00	2020-11-04 20:11:15.453+00	t
-17	125	20	2020-10-06 23:59:24.645181+00	2020-11-04 20:11:17.038+00	t
-26	134	20	2020-10-07 00:12:00.420773+00	2020-11-04 20:11:30.739+00	t
-30	138	3	2020-10-29 21:25:59.870474+00	2020-11-05 21:30:19.431+00	t
+9	117	3	2020-10-06 23:32:40.456128+00	\N	f
+11	119	3	2020-10-06 23:37:21.245011+00	\N	f
+29	137	3	2020-11-08 02:37:39.006753+00	\N	f
+30	138	3	2020-11-08 02:40:25.155206+00	\N	f
+31	139	3	2020-11-08 02:43:57.061479+00	\N	f
 \.
 
 
@@ -335,14 +339,14 @@ SELECT pg_catalog.setval('public.categories_category_id_seq', 5, true);
 -- Name: coupons_coupon_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.coupons_coupon_id_seq', 138, true);
+SELECT pg_catalog.setval('public.coupons_coupon_id_seq', 139, true);
 
 
 --
 -- Name: history_history_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.history_history_id_seq', 30, true);
+SELECT pg_catalog.setval('public.history_history_id_seq', 31, true);
 
 
 --
