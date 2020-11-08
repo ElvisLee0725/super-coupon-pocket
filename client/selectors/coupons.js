@@ -17,8 +17,8 @@ export default (coupons, { text, category, sortBy }) => {
     })
     .sort((coupon1, coupon2) => {
       if (sortBy === 'creation') {
-        // Return the latest created coupon first
-        return moment(coupon1.created_at) < moment(coupon2.created_at) ? 1 : -1;
+        // Return the latest created/update coupon first
+        return moment(coupon1.update_at) < moment(coupon2.update_at) ? 1 : -1;
       } else if (sortBy === 'expiration') {
         // Return the expiration date closest to today first
         return moment(coupon1.expiration_date).diff(moment(), 'days') <

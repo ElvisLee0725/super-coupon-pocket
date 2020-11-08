@@ -8,6 +8,6 @@ export default coupons => {
       return coupon.used || isExpired;
     })
     .sort((coupon1, coupon2) => {
-      return moment(coupon1.created_at) < moment(coupon2.created_at) ? 1 : -1;
+      return moment(coupon1.update_at) < moment(coupon2.update_at) ? 1 : -1;
     });
 };

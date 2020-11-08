@@ -101,8 +101,8 @@ const CouponFilters = ({
                 setSortBy(e.target.value);
               }}
             >
-              <option value='creation'>Created Date</option>
-              <option value='expiration'>Expiration Date</option>
+              <option value='creation'>Create / Update</option>
+              <option value='expiration'>Expiration</option>
             </select>
           </label>
         </div>

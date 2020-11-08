@@ -37,9 +37,9 @@ router.post(
     try {
       // Check if categoryId is valid
       const sqlCheckCategory = `
-        SELECT "ca"."category"
-        FROM "categories" AS "ca"
-        WHERE "ca"."category_id" = $1;
+        SELECT ca.category
+        FROM categories AS ca
+        WHERE ca.category_id = $1;
     `;
       const {
         rows: [cat = null]
@@ -51,9 +51,9 @@ router.post(
       }
 
       const sqlCreateCoupon = `
-        INSERT INTO "coupons" ("coupon_id", "user_id", "merchant", "discount", "category_id", "expiration_date", "created_at", "used")
-        VALUES (default, $1, $2, $3, $4, $5, default, default)
-        RETURNING "coupon_id";
+        INSERT INTO coupons (coupon_id, user_id, merchant, discount, category_id, expiration_date, created_at, update_at, used)
+        VALUES (default, $1, $2, $3, $4, $5, $6, $7, default)
+        RETURNING coupon_id;
     `;
 
       const {
@@ -63,10 +63,12 @@ router.post(
         merchant,
         discount,
         categoryId,
-        expirationDate
+        expirationDate,
+        moment(),
+        moment()
       ]);
 
-      const sqlCreateHistory = `INSERT INTO "history" ("history_id", "coupon_id", "user_id", "created_at", "used_at", "used")
+      const sqlCreateHistory = `INSERT INTO history (history_id, coupon_id, user_id, created_at, used_at, used)
         VALUES (default, $1, $2, default, default, default)
         RETURNING *;
       `;
@@ -88,16 +90,17 @@ router.post(
 router.get('/', auth, async (req, res, next) => {
   try {
     const sqlGetAllCoupons = `
-            SELECT "c"."coupon_id" AS "id",
-                   "c"."merchant",
-                   "c"."discount",
-                   "c"."expiration_date",
-                   "c"."created_at",
-                   "ca"."category",
-                   "c"."used"
-            FROM "coupons" AS "c"
-            JOIN "categories" AS "ca" USING ("category_id")
-            WHERE "c"."user_id" = $1;
+            SELECT c.coupon_id AS id,
+                   c.merchant,
+                   c.discount,
+                   c.expiration_date,
+                   c.created_at,
+                   c.update_at,
+                   ca.category,
+                   c.used
+            FROM coupons AS c
+            JOIN categories AS ca USING (category_id)
+            WHERE c.user_id = $1;
         `;
     const { rows: coupons = null } = await db.query(sqlGetAllCoupons, [
       req.user.id
@@ -199,9 +202,9 @@ router.put(
     try {
       // Check if categoryId is valid
       const sqlCheckCategory = `
-      SELECT "ca"."category"
-      FROM "categories" AS "ca"
-      WHERE "ca"."category_id" = $1;
+      SELECT ca.category
+      FROM categories AS ca
+      WHERE ca.category_id = $1;
   `;
       const {
         rows: [cat = null]
@@ -214,9 +217,9 @@ router.put(
 
       // Check current login user owns this coupon:
       const sqlCheckUser = `
-            SELECT "c"."user_id"
-            FROM "coupons" AS "c"
-            WHERE "c"."coupon_id" = $1;
+            SELECT c.user_id
+            FROM coupons AS c
+            WHERE c.coupon_id = $1;
         `;
       const {
         rows: [couponUserId = null]
