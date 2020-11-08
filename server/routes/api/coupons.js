@@ -239,13 +239,14 @@ router.put(
 
       // Start the coupon update
       const sqlEditCoupon = `
-            UPDATE "coupons"
-            SET "merchant" = $1,
-                "discount" = $2,
-                "category_id" = $3,
-                "expiration_date" = $4,
-                "used" = $5
-            WHERE "coupon_id" = $6
+            UPDATE coupons
+            SET merchant = $1,
+                discount = $2,
+                category_id = $3,
+                expiration_date = $4,
+                used = $5,
+                update_at = $6
+            WHERE coupon_id = $7
             RETURNING *;
         `;
       const {
@@ -256,15 +257,16 @@ router.put(
         categoryId,
         expirationDate,
         used,
+        moment(),
         couponId
       ]);
 
-      // Update coupon used time or remove used in history depending on used value
+      // Update coupon used time or remove used in history table depending on used value
       const sqlUpdateUsedInHistory = `
-        UPDATE "history"
-        SET "used_at" = $1,
-        "used" = $2
-        WHERE "coupon_id" = $3;
+        UPDATE history
+        SET used_at = $1,
+        used = $2
+        WHERE coupon_id = $3;
       `;
       if (used) {
         await db.query(sqlUpdateUsedInHistory, [moment(), used, couponId]);
