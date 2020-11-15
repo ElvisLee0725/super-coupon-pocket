@@ -16,6 +16,17 @@ const CouponItem = ({
 }) => {
   const [markUsed, setUsed] = useState(used);
 
+  const daysBeforeExpire = moment(expirationDate).startOf('day').diff(moment().startOf('day'), 'days');
+  let showExpire = '';
+
+  if (daysBeforeExpire === 1) {
+    showExpire = 'Tomorrow';
+  } else if (daysBeforeExpire === 0) {
+    showExpire = 'Today';
+  } else {
+    showExpire = moment(expirationDate).format('MM/DD/YYYY');
+  }
+
   return (
     <Fragment>
       <div
@@ -46,12 +57,12 @@ const CouponItem = ({
               Expiration:{' '}
               <span
                 className={`coupon-layout__expiration ${
-                  moment(expirationDate).diff(moment(), 'days') < 7
+                  daysBeforeExpire < 7
                     ? 'expireSoon'
                     : ''
                 }`}
               >
-                {moment(expirationDate).format('MM/DD/YYYY')}
+                { showExpire }
               </span>
             </p>
           </div>
