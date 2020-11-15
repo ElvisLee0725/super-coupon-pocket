@@ -4,7 +4,7 @@ export default coupons => {
   return coupons
     .filter(coupon => {
       const isExpired =
-        moment(coupon.expiration_date).diff(moment(), 'days') < 0;
+        moment(coupon.expiration_date).startOf('day').diff(moment().startOf('day'), 'days') < 0;
       return coupon.used || isExpired;
     })
     .sort((coupon1, coupon2) => {

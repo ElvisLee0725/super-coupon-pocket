@@ -11,7 +11,7 @@ export default (coupons, { text, category, sortBy }) => {
         !!(category === null || category[coupon.category]);
 
       const isExpired =
-        moment(coupon.expiration_date).diff(moment(), 'days') < 0;
+        moment(coupon.expiration_date).startOf('day').diff(moment().startOf('day'), 'days') < 0;
 
       return textMatch && categoryMatch && !isExpired && !coupon.used;
     })
