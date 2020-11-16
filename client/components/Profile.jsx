@@ -13,6 +13,7 @@ const Profile = ({
   loading,
   totalCouponsCount,
   totalUsedCouponsCount,
+  ranking,
   setAlert,
   uploadUserImage,
   getPersonalHistory
@@ -184,6 +185,7 @@ const Profile = ({
                   100
                 ).toFixed(2)}%`}
             </p>
+            <p><strong>{ ranking && `Wow! You are ranked #${ranking} among all coupon users!`}</strong></p>
           </div>
         </div>
       </div>
@@ -202,7 +204,8 @@ const mapStateToProps = state => ({
   user: state.auth.user,
   loading: state.auth.loading,
   totalCouponsCount: state.history.totalCouponsCount,
-  totalUsedCouponsCount: state.history.totalUsedCouponsCount
+  totalUsedCouponsCount: state.history.totalUsedCouponsCount,
+  ranking: state.history.ranking
 });
 
 export default connect(mapStateToProps, {

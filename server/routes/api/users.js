@@ -191,6 +191,33 @@ router.get('/history-all-used', auth, async (req, res, next) => {
   }
 });
 
+// @route   GET /api/users/ranking
+// @desc    Get users used coupons ranking
+// @access  Private
+router.get('/ranking', auth, async (req, res, next) => {
+  try {
+    const sqlGetRanking = `
+      SELECT user_id, COUNT(used) AS "number_of_used"
+      FROM history
+      WHERE used = true
+      GROUP BY user_id
+      ORDER BY COUNT(used) DESC
+      LIMIT 3;
+    `;
+    const { rows = null } = await db.query(sqlGetRanking);
+    let ranking = null;
+    for (let i = 0; i < rows.length; i++) {
+      if (rows[i].user_id === req.user.id) {
+        ranking = i + 1;
+        break;
+      }
+    }
+    res.json({ ranking });
+  } catch (err) {
+    next(err);
+  }
+});
+
 aws.config.update({
   secretAccessKey: process.env.SECRET_ACCESS_KEY,
   accessKeyId: process.env.ACCESS_KEY_ID,
