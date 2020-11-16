@@ -152,50 +152,31 @@ router.patch(
   }
 );
 
-// @route   GET /api/users/history-all
-// @desc    Get users personal coupon history
+// @route   GET /api/users/proflie-statistics
+// @desc    Get user's personal statistics like created coupon number, used coupon number and ranking by coupon used
 // @access  Private
-router.get('/history-all', auth, async (req, res, next) => {
+router.get('/profile-statistics', auth, async (req, res, next) => {
   try {
     const sqlGetHistory = `
       SELECT COUNT(*) AS "totalCouponsCount"
-      FROM "history"
-      WHERE "user_id" = $1;
+      FROM history
+      WHERE user_id = $1;
     `;
 
     const {
-      rows: [totalCouponsCount = 0]
+      rows: [{ totalCouponsCount = 0 }]
     } = await db.query(sqlGetHistory, [req.user.id]);
-    res.json(totalCouponsCount);
-  } catch (err) {
-    next(err);
-  }
-});
 
-// @route   GET /api/users/history-all-used
-// @desc    Get users personal used coupon history
-// @access  Private
-router.get('/history-all-used', auth, async (req, res, next) => {
-  try {
     const sqlGetHistoryUsed = `
       SELECT COUNT(*) AS "totalUsedCouponsCount"
-      FROM "history"
-      WHERE "user_id" = $1 AND "used" = true;
+      FROM history
+      WHERE user_id = $1 AND used = true;
     `;
-    const {
-      rows: [totalUsedCouponsCount = 0]
-    } = await db.query(sqlGetHistoryUsed, [req.user.id]);
-    res.json(totalUsedCouponsCount);
-  } catch (err) {
-    next(err);
-  }
-});
 
-// @route   GET /api/users/ranking
-// @desc    Get users used coupons ranking
-// @access  Private
-router.get('/ranking', auth, async (req, res, next) => {
-  try {
+    const {
+      rows: [{ totalUsedCouponsCount = 0 }]
+    } = await db.query(sqlGetHistoryUsed, [req.user.id]);
+
     const sqlGetRanking = `
       SELECT user_id, COUNT(used) AS "number_of_used"
       FROM history
@@ -204,6 +185,7 @@ router.get('/ranking', auth, async (req, res, next) => {
       ORDER BY COUNT(used) DESC
       LIMIT 3;
     `;
+
     const { rows = null } = await db.query(sqlGetRanking);
     let ranking = null;
     for (let i = 0; i < rows.length; i++) {
@@ -212,7 +194,13 @@ router.get('/ranking', auth, async (req, res, next) => {
         break;
       }
     }
-    res.json({ ranking });
+
+    res.json({
+      totalCouponsCount,
+      totalUsedCouponsCount,
+      ranking
+    });
+
   } catch (err) {
     next(err);
   }
