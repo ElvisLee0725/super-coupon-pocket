@@ -185,7 +185,7 @@ const Profile = ({
                   100
                 ).toFixed(2)}%`}
             </p>
-            <p><strong>{ ranking && `Wow! You are ranked #${ranking} among all coupon users!`}</strong></p>
+            <p><strong>{ ranking && `Wow! You are ranked #${ranking} among all users!`}</strong></p>
           </div>
         </div>
       </div>

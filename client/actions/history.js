@@ -3,12 +3,11 @@ import axios from 'axios';
 
 export const getPersonalHistory = () => async dispatch => {
   try {
-    const resAll = await axios.get('/api/users/history-all');
-    const resUsed = await axios.get('/api/users/history-all-used');
-    const ranking = await axios.get('/api/users/ranking');
+    const res = await axios.get('/api/users/profile-statistics');
+
     dispatch({
       type: GET_PERSONAL_HISTORY,
-      payload: { ...resAll.data, ...resUsed.data, ...ranking.data }
+      payload: res.data
     });
   } catch (err) {
     dispatch({
