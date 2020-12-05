@@ -1,0 +1,27 @@
+.alert-viewport {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: transparent;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 0;
+  transition: all 0.5s ease-out;
+
+  &--visible {
+    opacity: 1;
+    visibility: visible;
+    z-index: 1;
+  }
+}
+
+.coupon-used-alert {
+  display: inline-block;
+  background-color: $themeBlue;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.8rem;
+  color: $white;
+  border-radius: 0.8rem;
+  opacity: 0.7;
+}
