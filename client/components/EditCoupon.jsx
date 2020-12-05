@@ -155,21 +155,23 @@ const EditCoupon = ({
               Used coupon
             </label>
           </div>
-          <div className='form-group clearfix'>
-            <button
-              type='submit'
-              className='mt-1 btn btn-themeBlue btn-block-xs-only btn-style float-right'
-            >
-              Save
-            </button>
-            <button
-              type='button'
-              className='mt-1 btn btn-delete btn-block-xs-only btn-style float-right'
-              data-toggle='modal'
-              data-target={`#deleteCouponModal${match.params.couponId}`}
-            >
-              Delete
-            </button>
+          <div className='form-group'>
+            <div className='btn-area'>
+              <button
+                type='submit'
+                className='mt-1 btn btn-themeBlue btn-style'
+              >
+                Save
+              </button>
+              <button
+                type='button'
+                className='mt-1 btn btn-delete btn-style'
+                data-toggle='modal'
+                data-target={`#deleteCouponModal${match.params.couponId}`}
+              >
+                Delete
+              </button>
+            </div>
 
             <DeleteModal
               deleteCoupon={deleteCoupon}

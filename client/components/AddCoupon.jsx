@@ -99,13 +99,15 @@ const AddCoupon = ({ addCoupon, getCategories, history, categories }) => {
               isOutsideRange={() => false}
             />
           </div>
-          <div className='form-group clearfix'>
-            <button
-              type='submit'
-              className='mt-1 btn btn-themeBlue btn-block-xs-only btn-style float-right'
-            >
-              Save
-            </button>
+          <div className='form-group'>
+            <div className='btn-area'>
+              <button
+                type='submit'
+                className='mt-1 btn btn-themeBlue btn-style'
+              >
+                Save
+              </button>
+            </div>
           </div>
         </form>
       </div>

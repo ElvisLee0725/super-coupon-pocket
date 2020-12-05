@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 const Navbar = ({ logout, isAuthenticated }) => {
   const authNavbar = (
-    <nav className='navbar navbar-expand-lg navbar-light navbar-color'>
+    <nav className='navbar sticky-top navbar-expand-lg navbar-light navbar-color'>
       <div className='container'>
         <button
           className='navbar-toggler'
