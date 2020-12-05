@@ -3,6 +3,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import setAuthToken from '../utils/setAuthToken';
 import Navbar from './Navbar';
 import Alert from './Alert';
+import AlertMiddle from './AlertMiddle';
 import Routes from '../routers/Routes';
 import { loadUser } from '../actions/auth';
 import Footer from './Footer';
@@ -43,6 +44,7 @@ export default class App extends React.Component {
           <Fragment>
             <Navbar />
             <Alert />
+            <AlertMiddle />
             <Routes />
             <Footer />
           </Fragment>

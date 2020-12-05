@@ -5,12 +5,14 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import DeleteModal from './DeleteModal';
 import { editCouponUsed, deleteCoupon } from '../actions/coupon';
+import { setAlertMiddle } from '../actions/alert';
 
 const CouponUsedExpiredItem = ({
   coupon,
   editCouponUsed,
   deleteCoupon,
-  history
+  history,
+  setAlertMiddle
 }) => {
   const [markUnused, setUnused] = useState(coupon.used);
 
@@ -45,6 +47,7 @@ const CouponUsedExpiredItem = ({
                 onChange={() => {
                   setUnused(false);
                   editCouponUsed(coupon.id, false);
+                  setAlertMiddle('Remove From Used');
                 }}
               />
             </div>
@@ -64,9 +67,10 @@ CouponUsedExpiredItem.propTypes = {
   coupon: PropTypes.object.isRequired,
   editCouponUsed: PropTypes.func.isRequired,
   deleteCoupon: PropTypes.func.isRequired,
-  history: PropTypes.object.isRequired
+  history: PropTypes.object.isRequired,
+  setAlertMiddle: PropTypes.func.isRequired
 };
 
-export default connect(null, { editCouponUsed, deleteCoupon })(
+export default connect(null, { editCouponUsed, deleteCoupon, setAlertMiddle })(
   withRouter(CouponUsedExpiredItem)
 );
