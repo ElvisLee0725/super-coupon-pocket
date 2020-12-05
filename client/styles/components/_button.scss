@@ -8,17 +8,21 @@
 }
 
 .btn-addCoupon {
-  display: inline-block;
   cursor: pointer;
+
+  &__icon-text {
+    display: flex;
+    flex-direction: column;
+    color: $themeBlue;
+    &:hover {
+      text-decoration: none;
+    }
+  }
 }
 
-.btn-addCoupon__icon-text {
+.btn-area {
   display: flex;
-  flex-direction: column;
-  color: $themeBlue;
-  &:hover {
-    text-decoration: none;
-  }
+  flex-direction: row-reverse;
 }
 
 .btn-delete {
@@ -32,25 +36,9 @@
 
 .btn-style {
   padding: 0.5rem 5rem;
-}
-
-.btn-block-xs-only {
-  margin-right: 1rem;
+  margin: 0 0.5rem;
 }
 
 .btn-halfWidth {
   width: 40%;
-}
-
-// Mobile styles
-@media (max-width: 480px) {
-  .btn-block-xs-only {
-    display: block;
-    width: 100%;
-    margin-bottom: 1rem !important;
-    margin-right: 0;
-  }
-  .expirationDateTitle {
-    display: block;
-  }
 }
