@@ -8,6 +8,8 @@ import CouponItem from './CouponItem';
 import CouponUsedExpired from './CouponUsedExpired';
 import selectCoupons from '../selectors/coupons';
 import selectUsedExpired from '../selectors/couponsUsedExpired';
+import selectUsedNotExpired from '../selectors/couponsUsedNotExpired';
+import selectExpired from '../selectors/couponsExpired';
 import Spinner from './Spinner';
 
 const Dashboard = ({
@@ -18,6 +20,7 @@ const Dashboard = ({
 }) => {
   const [openingCouponId, setOpeningCouponId] = useState(undefined);
   const [openUsedCoupons, toggleUsedCoupons] = useState(false);
+  const [openExpiredCoupons, toggleExpiredCoupons] = useState(false);
 
   useEffect(() => {
     getAllCoupons();
@@ -26,6 +29,8 @@ const Dashboard = ({
 
   const couponsFiltered = selectCoupons(coupons, filter);
   const couponsUsedandExpired = selectUsedExpired(coupons);
+  const couponsUsednotExpired = selectUsedNotExpired(couponsUsedandExpired);
+  const couponsExpired = selectExpired(couponsUsedandExpired);
 
   return loading ? (
     <Spinner />
@@ -55,10 +60,10 @@ const Dashboard = ({
           <a
             className='usedExpired__toggle'
             data-toggle='collapse'
-            href='#usedExpiredArea'
+            href='#usedArea'
             role='button'
             aria-expanded='false'
-            aria-controls='usedExpiredArea'
+            aria-controls='usedArea'
             onClick={() => toggleUsedCoupons(!openUsedCoupons)}
           >
             <i
@@ -67,14 +72,41 @@ const Dashboard = ({
               }`}
             ></i>
             &nbsp;{' '}
-            {couponsUsedandExpired.length > 0 &&
-              `(${couponsUsedandExpired.length})`}{' '}
-            used and expired
+            {couponsUsednotExpired.length > 0 &&
+              `(${couponsUsednotExpired.length})`}{' '}
+            Coupons Used
           </a>
         </div>
-        <div className='collapse mb-3' id='usedExpiredArea'>
-          <CouponUsedExpired coupons={couponsUsedandExpired} />
+
+        <div className='collapse mb-3' id='usedArea'>
+          <CouponUsedExpired coupons={couponsUsednotExpired} />
         </div>
+
+        <div className='usedExpired pt-3 mb-3'>
+          <a
+            className='usedExpired__toggle'
+            data-toggle='collapse'
+            href='#expiredArea'
+            role='button'
+            aria-expanded='false'
+            aria-controls='expiredArea'
+            onClick={() => toggleExpiredCoupons(!openExpiredCoupons)}
+          >
+            <i
+              className={`fas fa-chevron-right ${
+                openExpiredCoupons ? 'open-used-coupons' : ''
+              }`}
+            ></i>
+            &nbsp;{' '}
+            {couponsExpired.length > 0 &&
+              `(${couponsExpired.length})`}{' '}
+            Coupons Expired
+          </a>
+        </div>
+        <div className='collapse mb-3' id='expiredArea'>
+          <CouponUsedExpired coupons={couponsExpired} />
+        </div>
+
       </div>
     </Fragment>
   ) : (
