@@ -41,94 +41,98 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     <Fragment>
       <div className='box-layout'>
         <div className='box-layout__box'>
-          <h4 className='mb-4'>Sign Up</h4>
-
-          <form onSubmit={e => handleSubmit(e)}>
-            <div className='form-group form-group--insertIcon insertIcon-left'>
-              <input
-                type='text'
-                className='form-control input-field font-italic'
-                placeholder='Name'
-                name='username'
-                value={username}
-                onChange={e => handleChange(e)}
-                required
-              />
-              <i className='fas fa-user'></i>
+          <h4 className='mb-4 hide-horizontal-mobile'>Sign Up</h4>
+          <div className='landscape-login-view'>
+            <div>
+              <form onSubmit={e => handleSubmit(e)}>
+                <div className='form-group form-group--insertIcon insertIcon-left'>
+                  <input
+                    type='text'
+                    className='form-control input-field font-italic'
+                    placeholder='Name'
+                    name='username'
+                    value={username}
+                    onChange={e => handleChange(e)}
+                    required
+                  />
+                  <i className='fas fa-user'></i>
+                </div>
+                <div className='form-group form-group--insertIcon insertIcon-left'>
+                  <input
+                    type='email'
+                    className='form-control input-field font-italic'
+                    placeholder='Email'
+                    name='email'
+                    value={email}
+                    onChange={e => handleChange(e)}
+                    required
+                  />
+                  <i className='far fa-envelope'></i>
+                </div>
+                <div className='form-group form-group--insertIcon insertIcon-left'>
+                  <input
+                    type='password'
+                    className='form-control input-field font-italic'
+                    placeholder='Password'
+                    name='password'
+                    value={password}
+                    onChange={e => handleChange(e)}
+                    minLength='6'
+                  />
+                  <i className='fas fa-lock'></i>
+                </div>
+                <div className='form-group form-group--insertIcon insertIcon-left'>
+                  <input
+                    type='password'
+                    className='form-control input-field font-italic'
+                    placeholder='Confirm Password'
+                    name='repeatPassword'
+                    value={repeatPassword}
+                    onChange={e => handleChange(e)}
+                    minLength='6'
+                  />
+                  <i className='fas fa-lock'></i>
+                </div>
+                <div className='form-group float-left'>
+                  <label htmlFor='consentCheck' className=''>
+                    <input
+                      type='checkbox'
+                      className='mr-2'
+                      name='consentTC'
+                      checked={consentTC}
+                      value={consentTC}
+                      id='consentCheck'
+                      onChange={e => {
+                        setFormData({ ...formData, consentTC: !consentTC });
+                        toggleDisabled(!disableSignUpBtn);
+                      }}
+                    />
+                    I agree to the{' '}
+                    <Link to='/privacy-policy' target='_blank'>
+                      Privacy Policy
+                    </Link>{' '}
+                    and{' '}
+                    <Link to='/terms-of-use' target='_blank'>
+                      Terms of Use
+                    </Link>
+                  </label>
+                </div>
+                <button
+                  type='submit'
+                  className='btn btn-themeBlue btn-block'
+                  disabled={disableSignUpBtn ? 'disabled' : ''}
+                >
+                  Sign up
+                </button>
+              </form>
             </div>
-            <div className='form-group form-group--insertIcon insertIcon-left'>
-              <input
-                type='email'
-                className='form-control input-field font-italic'
-                placeholder='Email'
-                name='email'
-                value={email}
-                onChange={e => handleChange(e)}
-                required
-              />
-              <i className='far fa-envelope'></i>
+            <div>
+              <div className='my-4 font-weight-bold'>OR</div>
+              <Link to='/' className='btn btn-themeBlue btn-block'>
+                Login
+              </Link>
             </div>
-            <div className='form-group form-group--insertIcon insertIcon-left'>
-              <input
-                type='password'
-                className='form-control input-field font-italic'
-                placeholder='Password'
-                name='password'
-                value={password}
-                onChange={e => handleChange(e)}
-                minLength='6'
-              />
-              <i className='fas fa-lock'></i>
-            </div>
-            <div className='form-group form-group--insertIcon insertIcon-left'>
-              <input
-                type='password'
-                className='form-control input-field font-italic'
-                placeholder='Confirm Password'
-                name='repeatPassword'
-                value={repeatPassword}
-                onChange={e => handleChange(e)}
-                minLength='6'
-              />
-              <i className='fas fa-lock'></i>
-            </div>
-            <div className='form-group float-left'>
-              <label htmlFor='consentCheck' className=''>
-                <input
-                  type='checkbox'
-                  className='mr-2'
-                  name='consentTC'
-                  checked={consentTC}
-                  value={consentTC}
-                  id='consentCheck'
-                  onChange={e => {
-                    setFormData({ ...formData, consentTC: !consentTC });
-                    toggleDisabled(!disableSignUpBtn);
-                  }}
-                />
-                I agree to the{' '}
-                <Link to='/privacy-policy' target='_blank'>
-                  Privacy Policy
-                </Link>{' '}
-                and{' '}
-                <Link to='/terms-of-use' target='_blank'>
-                  Terms of Use
-                </Link>
-              </label>
-            </div>
-            <button
-              type='submit'
-              className='btn btn-themeBlue btn-block'
-              disabled={disableSignUpBtn ? 'disabled' : ''}
-            >
-              Sign up
-            </button>
-          </form>
-
-          <div className='my-4 font-weight-bold'>OR</div>
-          <Link to='/' className='btn btn-themeBlue btn-block'>
-            Login
-          </Link>
+          </div>
         </div>
       </div>
     </Fragment>

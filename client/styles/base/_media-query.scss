@@ -27,11 +27,42 @@
   }
 }
 
-// Landscape
+// Landscape Mobile
 @media (max-height: 480px) {
   .btn-area {
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  .box-layout {
+    height: 100%;
+  }
+
+  .box-layout__box {
+    width: 100%;
+  }
+
+  .logo-horizontal-mobile {
+    margin-bottom: 1rem !important;
+  }
+
+  .hide-horizontal-mobile {
+    display: none;
+  }
+
+  .landscape-login-view {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .landscape-login-view > div {
+    padding: 0 0.8rem;
+    flex: 1 1 0px;
+  }
+
+  .landscape-login-view .form-group {
+    margin-bottom: 0.5rem;
   }
 }
