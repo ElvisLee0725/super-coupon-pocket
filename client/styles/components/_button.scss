@@ -7,6 +7,15 @@
   }
 }
 
+.btn-themeRed {
+  background-color: $themeRed;
+  color: #fff;
+  &:hover {
+    background-color: darken($themeRed, 20%);
+    color: #fff;
+  }
+}
+
 .btn-addCoupon {
   cursor: pointer;
 
@@ -23,15 +32,6 @@
 .btn-area {
   display: flex;
   flex-direction: row-reverse;
-}
-
-.btn-delete {
-  background-color: $themeRed;
-  color: #fff;
-  &:hover {
-    background-color: darken($themeRed, 20%);
-    color: #fff;
-  }
 }
 
 .btn-style {

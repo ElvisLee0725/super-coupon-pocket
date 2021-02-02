@@ -33,7 +33,7 @@ const DeleteModal = ({ deleteCoupon, couponId, history }) => {
 
               <button
                 type='button'
-                className='btn btn-delete btn-halfWidth'
+                className='btn btn-themeRed btn-halfWidth'
                 data-dismiss='modal'
                 onClick={() => deleteCoupon(couponId, history)}
               >

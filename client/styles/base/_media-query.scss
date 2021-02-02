@@ -25,6 +25,10 @@
       justify-content: center;
     }
   }
+
+  .error-img {
+    width: 70%;
+  }
 }
 
 // Landscape Mobile
@@ -64,5 +68,9 @@
 
   .landscape-login-view .form-group {
     margin-bottom: 0.5rem;
+  }
+
+  .error-img {
+    width: 70%;
   }
 }

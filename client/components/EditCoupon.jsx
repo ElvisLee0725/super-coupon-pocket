@@ -165,7 +165,7 @@ const EditCoupon = ({
               </button>
               <button
                 type='button'
-                className='mt-1 btn btn-delete btn-style'
+                className='mt-1 btn btn-themeRed btn-style'
                 data-toggle='modal'
                 data-target={`#deleteCouponModal${match.params.couponId}`}
               >
