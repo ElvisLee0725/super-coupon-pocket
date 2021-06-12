@@ -86,7 +86,7 @@ router.post(
       jwt.sign(
         payload,
         process.env.JWTSECRET,
-        { expiresIn: 86400 },
+        { expiresIn: '7 days' },
         (err, token) => {
           if (err) throw err;
 
@@ -100,7 +100,7 @@ router.post(
 );
 
 // @route   POST api/auth/guest
-// @desc    Login user as guest and get token
+// @desc    Login user with guest account and get token
 // @access  Public
 router.post(
   '/guest',
