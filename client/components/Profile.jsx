@@ -169,7 +169,7 @@ const Profile = ({
                   onChange={e => handlePasswordChange(e)}
                 />
               </div>
-              <button type='submit' className='btn btn-delete btn-block'>
+              <button type='submit' className='btn btn-themeRed btn-block'>
                 Update
               </button>
             </form>
